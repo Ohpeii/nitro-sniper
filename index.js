@@ -45,10 +45,9 @@ for (const token of tokens) {
    client.on('message', async msg => {
       let codes = msg.content.match(regex);
       if (!codes || codes === null || codes.length === 0) return;
-
-      let start = new Date();
-
       for (let code of codes) {
+         let start = new Date();
+         
          code = code.replace(/(discord\.gift\/|discord\.com\/gifts\/|discordapp\.com\/gifts\/)/gmi, '');
 
          phin({
