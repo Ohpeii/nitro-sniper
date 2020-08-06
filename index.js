@@ -59,16 +59,17 @@ for (const token of tokens) {
                "User-Agent": userAgent
             }
          }, (err, res) => {
+            let end = `${new Date() - start}ms`;
             if (err) {
                console.log(`[Nitro Sniper] (${code}) - Error - ${err}`);
             } else if (res.body.message === '401: Unauthorized') {
                console.log(`[Nitro Sniper] (${code}) - Error - Your main token is invalid.`)
             } else if (res.body.message == "This gift has been redeemed already.") {
-               console.log(`[Nitro Sniper] (${code}) - Already redeemed - ${msg.guild ? msg.guild.name : "DMs"} - ${new Date() - start}ms `)
+               console.log(`[Nitro Sniper] (${code}) - Already redeemed - ${msg.guild ? msg.guild.name : "DMs"} - ${end}`)
             } else if ('subscription_plan' in res.body) {
-               console.log(`[Nitro Sniper] (${code}) - Success - ${res.body.subscription_plan.name} - ${msg.guild ? msg.guild.name : "DMs"}  - ${new Date() - start}ms`)
+               console.log(`[Nitro Sniper] (${code}) - Success - ${res.body.subscription_plan.name} - ${msg.guild ? msg.guild.name : "DMs"}  - ${end}`)
             } else if (res.body.message == "Unknown Gift Code") {
-               console.log(`[Nitro Sniper] (${code}) - Invalid Code - ${msg.guild ? msg.guild.name : "DMs"}  - ${new Date() - start}ms`)
+               console.log(`[Nitro Sniper] (${code}) - Invalid Code - ${msg.guild ? msg.guild.name : "DMs"}  - ${end}`)
             }
          })
       }
