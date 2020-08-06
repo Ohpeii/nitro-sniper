@@ -1,0 +1,11 @@
+{
+  "name": "nitro-sniper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "11.4",
+    "dotenv": "^8.2.0",
+    "phin": "^3.5.0"
+  }
+}
