@@ -10,7 +10,12 @@ A fork of the (previously-MIT licensed) sniper by hellbound1337.
 - Notifications from the mobile discord app work if you don't use your main account for sniping too.
 - Removes non-alphanumeric chars automatically from codes and tries to redeem.
 - Auto-detects obvious fake codes.
-- It remembers all codes it tries and won't check them again. (clears on restart)
+- It remembers all codes it tries and won't check them again. (clears on restart).
+- Optional webhook support.
+# Disclaimer
+The use of selfbots is against the discord TOS and guidelines.  
+Before proceeding, make sure you understand the implications and can accept the consequences.
+
 # Installation methods
 #### Heroku (recommended)
 Click on the image below and login to continue the setup.<br>
@@ -23,6 +28,7 @@ Click on the image below and login to continue the setup.<br>
 - Edit the dotenv file. <br>
     - To insert multiple tokens in the guildTokens variable, use `,` as a separator. <br> 
     - The useMain can be either true or false. If it's false the mainToken won't be checked to avoid destroying it.
+    - If you want to use a webhook, put the url in the webhookUrl field.
 - Run `node .`
 #### Docker
 Public image soon™.

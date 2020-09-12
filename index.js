@@ -55,7 +55,6 @@ if (webhookUrl != null) {
     }
 
 }
-send_webhook("Nitro Yearly", "ExampleServer", "ExampleGuy#1234", "ExampleAlt#4312");
 if (!tokens) {
     console.log(chalk`{magenta [Nitro Sniper]} {red (FATAL ERROR)} {redBright There is no token to login to, please check your configuration. }`);
     console.log(chalk`{magenta [Nitro Sniper]} {red (FATAL ERROR)} {redBright Quitting...}`);
