@@ -8,7 +8,7 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>. */
 
-const { version } = require('./package.json');
+const {version} = require('./package.json');
 const userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.102 Safari/537.36";
 const regex = new RegExp(/(discord\.gift\/|discord\.com\/gifts\/|discordapp\.com\/gifts\/)[^\s]+/gmi);
 
@@ -106,16 +106,16 @@ for (const token of tokens) {
             code = code.replace(/(discord\.gift\/|discord\.com\/gifts\/|discordapp\.com\/gifts\/)/gmi, '');
             let code_no_symbols = code.replace(/\W/g, '');
             let code_no_obfuscation = code.replace(/\W.*$/g, '');
-            if(code_no_symbols !== code_no_obfuscation){
-                if(code_no_symbols.length > 26 && code_no_symbols.length < 16) code = code_no_symbols;
-                else if(code_no_obfuscation.length > 26 && code_no_obfuscation < 16) code = code_no_obfuscation;
+            if (code_no_symbols !== code_no_obfuscation) {
+                if (code_no_symbols.length > 26 && code_no_symbols.length < 16) code = code_no_symbols;
+                else if (code_no_obfuscation.length > 26 && code_no_obfuscation < 16) code = code_no_obfuscation;
             }
-            
+
             if (code.length > 26 || code.length < 16) {
                 return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped ${code} - Fake Code - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
             }
 
-            if(usedTokens.includes(code)) return console.log(`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(255,228,138) Sniped ${code} - Already checked - Seen in ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
+            if (usedTokens.includes(code)) return console.log(`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(255,228,138) Sniped ${code} - Already checked - Seen in ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
 
             phin({
                 url: `https://discord.com/api/v6/entitlements/gift-codes/${code}/redeem`,
@@ -152,13 +152,13 @@ for (const token of tokens) {
 
     })
     client.on('error', error => {
-        console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {redBright Token [${token.substring(0,10)}...] encountered a connection error: ${error}.}`);
+        console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {redBright Token [${token.substring(0, 10)}...] encountered a connection error: ${error}.}`);
     })
     client.on('reconnecting', () => {
-        console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {rgb(255,245,107) Attempting to reconnect token [${token.substring(0,10)}...]}.`);
+        console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {rgb(255,245,107) Attempting to reconnect token [${token.substring(0, 10)}...]}.`);
     })
     client.on('resume', () => {
-        console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Token [${token.substring(0,10)}...] reconnected successfully!}`);
+        console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Token [${token.substring(0, 10)}...] reconnected successfully!}`);
     })
     setTimeout(() => {
         client.login(token)
@@ -168,7 +168,7 @@ for (const token of tokens) {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR) {redBright Quitting...}`)
                     process.exit();
                 } else {
-                    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {redBright Skipping slave token "${token.substring(0,10)}...": ${err}.}`)
+                    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {redBright Skipping slave token "${token.substring(0, 10)}...": ${err}.}`)
                     clearTimeout();
                 }
             })
