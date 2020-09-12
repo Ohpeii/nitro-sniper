@@ -1,11 +1,12 @@
 {
-  "name": "nitro-sniper",
-  "version": "1.0.0",
+  "name": "nitro-sniper-enhanced",
+  "version": "3.0.0",
   "main": "index.js",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "dependencies": {
-    "discord.js": "11.4",
+    "discord.js": "11.6.4",
     "dotenv": "^8.2.0",
-    "phin": "^3.5.0"
+    "phin": "^3.5.0",
+    "chalk": "^4.1.0"
   }
 }

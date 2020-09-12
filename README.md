@@ -1,33 +1,44 @@
-# Nitro Sniper
-Snipes nitro gift codes from an alt account(s) to your main account.
+# Nitro Sniper Enhanced [![CodeFactor](https://www.codefactor.io/repository/github/giorgiobrux/nitro-sniper-enhanced/badge)](https://www.codefactor.io/repository/github/giorgiobrux/nitro-sniper-enhanced) ![GitHub issues](https://img.shields.io/github/issues/giorgiobrux/nitro-sniper-enhanced) [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
 
-# Deploying to Heroku
-
-To deploy to Heroku, you can click on the image below and login to your account.
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/hellbound1337/nitro-sniper/tree/master)
-
-**MAKE SURE THE REGION IS SET TO UNITED STATES FOR THE FASTEST RESPONSE TIMES**
-
-**You can now go back to your app's page then visit *Resources*, make sure you disable the *web* dyno and enable the *worker* dyno. Your bot should now be up and running. Remember you can always check your bot's console if you access the *View Logs* in the *More* dropdown menu.**
-
-# Requirements
-- [Node](https://nodejs.org/en/)
-
-# Installation (If you want to run this locally, not on heroku)
-- Open a command prompt/terminal anywhere
-- Run `git clone https://github.com/hellbound1337/nitro-sniper nitro-sniper`
-- Run `cd nitro-sniper`
-- Run `npm install`
-- Run `node .`
+<img alt="img" align="right" src="https://user-images.githubusercontent.com/18328525/92536909-19ea5000-f23b-11ea-8fb7-524b4ba22f26.png">
+Snipes nitro gift codes; with alt-support.<br>
+A fork of the (previously-MIT licensed) sniper by hellbound1337.
 
 # Features
-- Logs into an alt accounts, making sure you don't have a cluttered discord on your main account, pass your `mainToken` and seperate your `guildTokens` with `,`. Example: `token1,token2`
-- Multi-token support
-- Notifications ACTUALLY work because it never logs into your main account, only redeemds the codes on it.
-- Light (No cluttered code, very simple and efficient)
-- One-click deploy
+- Beautiful colors to see quickly what you need to see.
+- Multi-token support with all codes redeemed on your main.
+- Notifications from the mobile discord app work if you don't use your main account for sniping too.
+- Removes non-alphanumeric chars automatically from codes and tries to redeem.
+- Auto-detects obvious fake codes.
+- It remembers all codes it tries and won't check them again. (clears on restart)
+# Installation methods
+#### Heroku (recommended)
+Click on the image below and login to continue the setup.<br>
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/giorgiobrux/nitro-sniper/tree/master)  
+#### Local
+- Make sure [Node](https://nodejs.org/en/) is installed on your system and open a command prompt/terminal.
+- Run `git clone https://github.com/giorgiobrux/nitro-sniper-enhanced nitro-sniper`
+- Run `cd nitro-sniper`
+- Run `npm install`
+- Edit the dotenv file. <br>
+    - To insert multiple tokens in the guildTokens variable, use `,` as a separator. <br> 
+    - The useMain can be either true or false. If it's false the mainToken won't be checked to avoid destroying it.
+- Run `node .`
+#### Docker
+Public image soon™.
+
+#Contributing
+Pull requests are welcome.  
+If you contribute, all your code will be licensed under GPL-3.0-or-later.  
 
 # Tips
-- Hosting this on something with high bandwidth might benefit you.
-- Do not mention that you have this anywhere , you have a high risk of being reported and possibly even terminated.
+- Try to get a low latency to discord servers as there can be competition with other snipers.
+- This is technically a self-bot: mentioning this in a discord chat is enough to make your account reportable to Trust & Safety.
+- Running more than one instance or different types of snipers is an easy way to get your account deactivated.
+- If you get a lot of nitro in a short amount of time, turn the sniper off for a while.
+- Before using, consider the moral implications of stealing gifts from communities you have nothing to do with.
+
+# License
+[GPL-3.0-or-later](https://www.gnu.org/licenses/)  
+Modified work Copyright (C) 2020 GiorgioBrux  
+Original work Copyright (C) 2020 hellrising1337 | Sublicensed according to the MIT license available [here](https://opensource.org/licenses/MIT) or in the [LICENSE.md](https://github.com/GiorgioBrux/nitro-sniper-enhanced/blob/master/LICENSE.md) file.
