@@ -85,12 +85,18 @@ for (const token of tokens) {
         for (let code of codes) {
             let start = new Date();
 
-            code = code.replace(/(discord\.gift\/|discord\.com\/gifts\/|discordapp\.com\/gifts\/)/gmi, '').replace(/\W/g, '');
-
-            //TODO: Support for realcode&,a -> realcode
+            code = code.replace(/(discord\.gift\/|discord\.com\/gifts\/|discordapp\.com\/gifts\/)/gmi, '');
+            let code_no_symbols = code.replace(/\W/g, '');
+            let code_no_obfuscation = code.replace(/\W.*$/g, '');
+            if(code_no_symbols !== code_no_obfuscation){
+                if(code_no_symbols.length > 26 && code_no_symbols.length < 16) code = code_no_symbols;
+                else if(code_no_obfuscation.length > 26 && code_no_obfuscation < 16) code = code_no_obfuscation;
+            }
+            
             if (code.length > 26 || code.length < 16) {
                 return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped ${code} - Fake Code - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
             }
+
             if(usedTokens.includes(code)) return console.log(`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(255,228,138) Sniped ${code} - Already checked - Seen in ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
 
             phin({
@@ -109,12 +115,14 @@ for (const token of tokens) {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code (${code}) but the main token is not valid.}`);
                 } else if (res.body.message === "This gift has been redeemed already.") {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(255,228,138) Sniped ${code} - Already redeemed - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
+                    usedTokens.push(code);
                 } else if ('subscription_plan' in res.body) {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(28,232,41) Sniped ${code} - Success! - ${res.body.subscription_plan.name} - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
+                    usedTokens.push(code);
                 } else if (res.body.message === "Unknown Gift Code") {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {redBright Sniped ${code} - Invalid - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
+                    usedTokens.push(code);
                 }
-                usedTokens.push(code);
             })
         }
     })
