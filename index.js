@@ -16,11 +16,12 @@ const dotenv = require('dotenv').config({path: 'dotenv'});
 const phin = require('phin').unpromisified;
 const chalk = require('chalk');
 
-const {Client} = require('discord.js');
+const {Client, WebhookClient, RichEmbed} = require('discord.js');
 
 const useMain = process.env.useMain;
 const tokens = process.env.guildTokens.split(',').filter(item => item);
 const mainToken = process.env.mainToken;
+const webhookUrl = process.env.webhookUrl;
 let usedTokens = [];
 
 if (useMain === 'true' && mainToken != null) tokens.unshift(mainToken);
@@ -37,13 +38,30 @@ console.log(`%c    _   ___ __                _____       _
 console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Welcome!}`);
 console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Running version} {blueBright.bold ${version}}{blueBright .}`);
 console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {redBright This program is licensed under GPL-3.0-or-later and provided free of charge at https://github.com/GiorgioBrux/nitro-sniper-enhanced.}`);
+if (webhookUrl != null) {
+    const webhooktoken = /[^/]*$/.exec(webhookUrl)[0];
+    const webhookid = webhookUrl.replace(/^.*\/(?=[^\/]*\/[^\/]*$)|\/[^\/]*$/g, '');
+    const webhookclient = new WebhookClient(webhookid, webhooktoken);
+    console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Using webhook with id: [${webhookid}] and token: [${webhooktoken}]}`);
+    function send_webhook(res_type, guild, giver, tokenname) {
+        const embed = new RichEmbed()
+            .setTitle(`Yay! Redeemed a ${res_type}.`)
+            .setColor('#1ce829')
+            .setFooter(`Sniped in ${guild} from ${giver} using ${tokenname}`)
+            .setTimestamp();
+        webhookclient.send('', {
+            embeds: [embed]
+        })
+    }
 
-if(!tokens){
+}
+send_webhook("Nitro Yearly", "ExampleServer", "ExampleGuy#1234", "ExampleAlt#4312");
+if (!tokens) {
     console.log(chalk`{magenta [Nitro Sniper]} {red (FATAL ERROR)} {redBright There is no token to login to, please check your configuration. }`);
     console.log(chalk`{magenta [Nitro Sniper]} {red (FATAL ERROR)} {redBright Quitting...}`);
     process.exit();
 }
-if(useMain === undefined)
+if (useMain === undefined)
     console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) useMain is undefined. Defaulting to false.}`);
 
 for (const token of tokens) {
@@ -119,6 +137,7 @@ for (const token of tokens) {
                 } else if ('subscription_plan' in res.body) {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(28,232,41) Sniped ${code} - Success! - ${res.body.subscription_plan.name} - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
                     usedTokens.push(code);
+                    if(webhookUrl !== null) send_webhook(res.body.subscription_plan.name, (msg.guild ? msg.guild.name : "DMs"), msg.author.tag, client.user.tag);
                 } else if (res.body.message === "Unknown Gift Code") {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {redBright Sniped ${code} - Invalid - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
                     usedTokens.push(code);

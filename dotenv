@@ -1,3 +1,4 @@
 guildTokens=""
 mainToken=""
 useMain=""
+webhookUrl=""

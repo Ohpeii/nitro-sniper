@@ -12,6 +12,10 @@
          "description": "Your alt accounts tokens. Required if useMain is set to false. (Split multiple tokens with \",\")",
          "required": false
       },
+      "webhookUrl": {
+         "description": "Put here your webhook url if you wish to receive messages when a gift is redeemed.",
+         "required": false
+      },
       "useMain": {
          "description": "Do you want to use your main token for sniping?",
          "required": true,
