@@ -43,11 +43,11 @@ if (webhookUrl != null) {
     const webhookid = webhookUrl.replace(/^.*\/(?=[^\/]*\/[^\/]*$)|\/[^\/]*$/g, '');
     const webhookclient = new WebhookClient(webhookid, webhooktoken);
     if (webhooktoken == null || webhookid == null || webhooktoken.length < webhookid.length || !webhookUrl.includes("https://discordapp.com/api/webhooks/")){
-        console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red The webhook url is not valid. Skipping...`);
+        console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red The webhook url is not valid. Skipping...}`);
         webhookUrl = null;
     }
     else
-        console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Using webhook with id: [${webhookid}] and token: [${webhooktoken}]}.`);
+        console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Using webhook with id: [${webhookid}] and token: [${webhooktoken}].}`);
 
     function send_webhook(res_type, guild, giver, tokenname, timetaken, code, msgurl) {
         const embed = new RichEmbed()
@@ -65,13 +65,13 @@ if (webhookUrl != null) {
             avatarURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS0JCyNz1WwaTkXB3jcr0MlMLIwXAsHjhoIRw&usqp=CAU',
             embeds: [embed]
         }).catch(err => {
-            console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to send webhook embed but got error: ${err}`);
+            console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to send webhook embed but got error: ${err}.}`);
         });
     }
 
 }
 if (!tokens || tokens.length === 0) {
-    console.log(chalk`{magenta [Nitro Sniper]} {red (FATAL ERROR)} {redBright There is no token to login to, please check your configuration. }`);
+    console.log(chalk`{magenta [Nitro Sniper]} {red (FATAL ERROR)} {redBright There is no token to login to, please check your configuration.}`);
     console.log(chalk`{magenta [Nitro Sniper]} {red (FATAL ERROR)} {redBright Quitting...}`);
     process.exit();
 }
