@@ -21,7 +21,7 @@ const {Client, WebhookClient, RichEmbed} = require('discord.js');
 const useMain = process.env.useMain;
 const tokens = process.env.guildTokens.split(',').filter(item => item);
 const mainToken = process.env.mainToken;
-const webhookUrl = process.env.webhookUrl;
+let webhookUrl = process.env.webhookUrl;
 let usedTokens = [];
 
 if (useMain === 'true' && mainToken != null) tokens.unshift(mainToken);
@@ -42,8 +42,10 @@ if (webhookUrl != null) {
     const webhooktoken = /[^/]*$/.exec(webhookUrl)[0];
     const webhookid = webhookUrl.replace(/^.*\/(?=[^\/]*\/[^\/]*$)|\/[^\/]*$/g, '');
     const webhookclient = new WebhookClient(webhookid, webhooktoken);
-    if (webhooktoken == null || webhookid == null || webhooktoken.length < webhookid.length || !webhookUrl.includes("https://discordapp.com/api/webhooks/"))
+    if (webhooktoken == null || webhookid == null || webhooktoken.length < webhookid.length || !webhookUrl.includes("https://discordapp.com/api/webhooks/")){
         console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red The webhook url is not valid. Skipping...`);
+        webhookUrl = null;
+    }
     else
         console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Using webhook with id: [${webhookid}] and token: [${webhooktoken}]}.`);
 
