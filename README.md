@@ -22,6 +22,9 @@ Before proceeding, make sure you understand the implications and can accept the 
 #### Heroku (recommended)
 Click on the image below and login to continue the setup.<br>
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/giorgiobrux/nitro-sniper/tree/master)  
+Make sure you go to your app -> Configure dynos/Resources and turn off `web` and start `worker`.<br>
+You can then see logs by clicking on `More` (top right) and then `View logs`.<br>
+To update see [here](https://github.com/GiorgioBrux/nitro-sniper-enhanced/issues/7#issuecomment-692116471).
 #### Local
 - Make sure [Node](https://nodejs.org/en/) is installed on your system and open a command prompt/terminal.
 - Run `git clone https://github.com/giorgiobrux/nitro-sniper-enhanced nitro-sniper`
