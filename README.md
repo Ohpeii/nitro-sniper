@@ -1,19 +1,21 @@
 # Nitro Sniper Enhanced [![CodeFactor](https://www.codefactor.io/repository/github/giorgiobrux/nitro-sniper-enhanced/badge)](https://www.codefactor.io/repository/github/giorgiobrux/nitro-sniper-enhanced) ![GitHub issues](https://img.shields.io/github/issues/giorgiobrux/nitro-sniper-enhanced) [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
-
 <img alt="img" align="right" src="https://user-images.githubusercontent.com/18328525/92536909-19ea5000-f23b-11ea-8fb7-524b4ba22f26.png">
 Snipes nitro gift codes; with alt-support.<br>
 A fork of the (previously-MIT licensed) sniper by hellbound1337.
-
+  
 # Features
+<img alt="img" align="right" src="https://user-images.githubusercontent.com/18328525/93030855-88a61f80-f626-11ea-882f-3136ca00d26e.png">
+
 - Beautiful colors to see quickly what you need to see.
 - Multi-token support with all codes redeemed on your main.
 - Notifications from the mobile discord app work if you don't use your main account for sniping too.
 - Removes non-alphanumeric chars automatically from codes and tries to redeem.
-- Auto-detects obvious fake codes.
+- Supports `code&,junk` -> `code` obfuscation.
+- Auto-detects fake codes by length or probability check.
 - It remembers all codes it tries and won't check them again. (clears on restart).
-- Optional webhook support.
+- Optional webhook support; Avatar and username set by default.
 # Disclaimer
-The use of selfbots is against the discord TOS and guidelines.  
+The use of selfbots is against the [discord TOS](https://discord.com/terms) and [guidelines](https://discord.com/guidelines).  
 Before proceeding, make sure you understand the implications and can accept the consequences.
 
 # Installation methods
@@ -40,7 +42,7 @@ If you contribute, all your code will be licensed under GPL-3.0-or-later.
 # Tips
 - Try to get a low latency to discord servers as there can be competition with other snipers.
 - This is technically a self-bot: mentioning this in a discord chat is enough to make your account reportable to Trust & Safety.
-- Running more than one instance or different types of snipers is an easy way to get your account deactivated.
+- Running more than one instance or different snipers is an easy way to get your account deactivated.
 - If you get a lot of nitro in a short amount of time, turn the sniper off for a while.
 - Before using, consider the moral implications of stealing gifts from communities you have nothing to do with.
 
@@ -48,3 +50,4 @@ If you contribute, all your code will be licensed under GPL-3.0-or-later.
 [GPL-3.0-or-later](https://www.gnu.org/licenses/)  
 Modified work Copyright (C) 2020 GiorgioBrux  
 Original work Copyright (C) 2020 hellrising1337 | Sublicensed according to the MIT license available [here](https://opensource.org/licenses/MIT) or in the [LICENSE.md](https://github.com/GiorgioBrux/nitro-sniper-enhanced/blob/master/LICENSE.md) file.
+
