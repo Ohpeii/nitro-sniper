@@ -71,8 +71,8 @@ if (webhookUrl != null) {
 
 }
 if (!tokens || tokens.length === 0) {
-    console.log(chalk`{magenta [Nitro Sniper]} {red (FATAL ERROR)} {redBright There is no token to login to, please check your configuration.}`);
-    console.log(chalk`{magenta [Nitro Sniper]} {red (FATAL ERROR)} {redBright Quitting...}`);
+    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red There is no token to login to, please check your configuration.}`);
+    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Quitting...}`);
     process.exit();
 }
 if (useMain === undefined)
@@ -128,7 +128,7 @@ for (const token of tokens) {
             const lowercase = code.replace(/[^a-z]+/g, "").length;
             const uppercase = code.replace(/[^A-Z]+/g, "").length;
 
-            if (code.length > 26 || code.length < 16 || (numeric - lowercase - uppercase) > 5) { //Error over 5 is statistically very unlikely for a true code.
+            if (code.length > 26 || code.length < 16 || (numeric - lowercase - uppercase) > 8) { //Error over 8 is statistically very unlikely for a true code.
                 return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped ${code} - Fake Code - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
             }
 
@@ -168,7 +168,7 @@ for (const token of tokens) {
 
     })
     client.on('error', error => {
-        console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {redBright Token [${token.substring(0, 10)}...] encountered a connection error: ${error}.}`);
+        console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Token [${token.substring(0, 10)}...] encountered a connection error: ${error}.}`);
     })
     client.on('reconnecting', () => {
         console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {rgb(255,245,107) Attempting to reconnect token [${token.substring(0, 10)}...]}.`);
@@ -180,11 +180,11 @@ for (const token of tokens) {
         client.login(token)
             .catch(function (err) {
                 if (token === mainToken) {
-                    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {redBright Main token not valid: ${err}.}`)
-                    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR) {redBright Quitting...}`)
+                    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Main token not valid: ${err}.}`)
+                    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR) {red Quitting...}`)
                     process.exit();
                 } else {
-                    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {redBright Skipping slave token "${token.substring(0, 10)}...": ${err}.}`)
+                    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Skipping slave token "${token.substring(0, 10)}...": ${err}.}`)
                     clearTimeout();
                 }
             })
