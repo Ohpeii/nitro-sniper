@@ -42,7 +42,7 @@ if (webhookUrl != null) {
     const webhooktoken = /[^/]*$/.exec(webhookUrl)[0];
     const webhookid = webhookUrl.replace(/^.*\/(?=[^\/]*\/[^\/]*$)|\/[^\/]*$/g, '');
     const webhookclient = new WebhookClient(webhookid, webhooktoken);
-    if (webhooktoken == null || webhookid == null || webhooktoken.length < webhookid.length || !webhookUrl.includes("https://discordapp.com/api/webhooks/")){
+    if (webhooktoken == null || webhookid == null || webhooktoken.length < webhookid.length || !/https:\/\/(ptb\.discordapp|canary\.discordapp|discordapp)\.com\/api\/webhooks\/[0-9]*\/.*/ig.test(webhookUrl)){
         console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red The webhook url is not valid. Skipping...}`);
         webhookUrl = null;
     }
