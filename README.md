@@ -5,7 +5,7 @@ Snipes nitro gift codes from an alt account(s) to your main account.
 
 To deploy to Heroku, you can click on the image below and login to your account.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/hellbound1337/nitro-sniper/tree/master)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Ohpeii/nitro-sniper/tree/master)
 
 **MAKE SURE THE REGION IS SET TO UNITED STATES FOR THE FASTEST RESPONSE TIMES**
 
