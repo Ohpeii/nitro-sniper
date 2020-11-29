@@ -36,7 +36,7 @@ To update see [here](https://github.com/GiorgioBrux/nitro-sniper-enhanced/issues
     - If you want to use a webhook, put the url in the webhookUrl field.
 - Run `node .`
 #### Docker
-Public image soon™.
+[Available on DockerHub](https://hub.docker.com/r/giorgiobrux/nitro-sniper)
 
 # Contributing
 Pull requests are welcome.  
