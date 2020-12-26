@@ -183,7 +183,7 @@ for (const token of tokens) {
             .catch(function (err) {
                 if (token === mainToken) {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Main token not valid: ${err}.}`)
-                    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR) {red Quitting...}`)
+                    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Quitting...}`)
                     process.exit();
                 } else {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Skipping slave token "${token.substring(0, 10)}...": ${err}.}`)
