@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.1.0...v1.1.1) (2021-01-09)
+
+
+### Bug Fixes
+
+* use node 14 on heroku ([77ef7a8](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/77ef7a82199c9d82fee0c5b8590c0e7f7fc6564f))
+
 # [1.1.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.0.0...v1.1.0) (2021-01-09)
 
 
