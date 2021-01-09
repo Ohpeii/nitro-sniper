@@ -11,6 +11,9 @@ You should have received a copy of the GNU General Public License along with thi
 const {version} = require('./package.json');
 const userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Safari/537.36";
 const regex = new RegExp(/(discord\.gift\/|discord\.com\/gifts\/|discordapp\.com\/gifts\/)[^\s]+/gmi);
+const privnote = new RegExp(/(?<=privnote.com\/)[^\s]+/);
+const privid = new RegExp(/[^#]*/);
+const privpass = new RegExp(/[^#]*$/);
 
 const dotenv = require('dotenv').config({path: 'dotenv'});
 const phin = require('phin').unpromisified;
@@ -124,10 +127,12 @@ for (const token of tokens) {
         if (!codes || codes.length === 0) {
             if(privnotecheck === 'false') return;
             else{
-                let privid = msg.content.match("(?<=privnote.com\/)[^\\s]+")
-                if(!privid || privid.length === 0) return;
+                let priv = msg.content.match(privnote)
+                let id = priv.match(privid)
+                let pass = priv.match(privpass)
+                if(!id || id.length === 0 || !pass || pass.length === 0) return;
                 else{
-                    let retrieved = await retrievePrivnote(privid);
+                    let retrieved = await retrievePrivnote(id, pass);
                     codes = retrieved.match(regex);
                     if(!codes || codes.length === 0) return;
                 }
