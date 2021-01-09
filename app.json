@@ -20,6 +20,16 @@
          "description": "Do you want to use your main token for sniping?",
          "required": true,
          "value": "false"
+      },
+      "legitimacycheck": {
+         "description": "Does some magic to check if the code could be legitimate but will slow the sniper down",
+         "required": true,
+         "value": "true"
+      },
+      "obfuscationcheck": {
+         "description": "Does some magic to remove obfuscation from codes but will slow the sniper down",
+         "required": true,
+         "value": "true"
       }
    }
 }

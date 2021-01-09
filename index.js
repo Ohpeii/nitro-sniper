@@ -1,6 +1,6 @@
 /*
 Nitro Sniper enhanced ed.
-Modified work Copyright (C) 2020 GiorgioBrux
+Modified work Copyright (C) 2020-2021 GiorgioBrux
 Original work Copyright (C) 2020 slow | Sublicensed according to the MIT license available at <https://opensource.org/licenses/MIT> or in the LICENSE.md file in the root folder.
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -22,6 +22,8 @@ const useMain = process.env.useMain;
 const tokens = process.env.guildTokens.split(',').filter(item => item);
 const mainToken = process.env.mainToken;
 let webhookUrl = process.env.webhookUrl;
+let legitimacycheck = process.env.legitimacycheck;
+let obfuscationcheck = process.env.obfuscationcheck;
 let usedTokens = [];
 
 if (useMain === 'true' && mainToken != null) tokens.unshift(mainToken);
@@ -75,8 +77,12 @@ if (!tokens || tokens.length === 0) {
     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Quitting...}`);
     process.exit();
 }
-if (useMain === undefined)
-    console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) useMain is undefined. Defaulting to false.}`);
+if (useMain !== 'true' && useMain !== 'false')
+    console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) useMain is not set correctly or is undefined. Defaulting to false.}`);
+if (legitimacycheck !== 'true' && legitimacycheck !== 'false')
+    console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) legitimacycheck is not set correctly or is undefined. Defaulting to false.}`);
+if (obfuscationcheck !== 'true' && obfuscationcheck !== 'false')
+    console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) obfuscationcheck is not set correctly or is undefined. Defaulting to false.}`);
 
 for (const token of tokens) {
     const client = new Client({
@@ -118,19 +124,25 @@ for (const token of tokens) {
             let start = new Date();
 
             code = code.replace(/(discord\.gift\/|discord\.com\/gifts\/|discordapp\.com\/gifts\/)/gmi, '');
-            let code_no_symbols = code.replace(/\W/g, '');
-            let code_no_obfuscation = code.replace(/\W.*$/g, '');
-            if (code_no_symbols !== code_no_obfuscation) {
-                if (code_no_symbols.length > 26 && code_no_symbols.length < 16) code = code_no_symbols;
-                else if (code_no_obfuscation.length > 26 && code_no_obfuscation < 16) code = code_no_obfuscation;
+            if(obfuscationcheck === 'true')
+            {
+                let code_no_symbols = code.replace(/\W/g, '');
+                let code_no_obfuscation = code.replace(/\W.*$/g, '');
+                if (code_no_symbols !== code_no_obfuscation) {
+                    if (code_no_symbols.length > 26 && code_no_symbols.length < 16) code = code_no_symbols;
+                    else if (code_no_obfuscation.length > 26 && code_no_obfuscation < 16) code = code_no_obfuscation;
+                }
             }
-            const numeric = code.replace(/[^0-9]/g, "").length;
-            const lowercase = code.replace(/[^a-z]+/g, "").length;
-            const uppercase = code.replace(/[^A-Z]+/g, "").length;
+            if(legitimacycheck === 'true'){
+                const numeric = code.replace(/[^0-9]/g, "").length;
+                const lowercase = code.replace(/[^a-z]+/g, "").length;
+                const uppercase = code.replace(/[^A-Z]+/g, "").length;
 
-            if (code.length > 26 || code.length < 16 || (numeric - lowercase - uppercase) > 8) { //Error over 8 is statistically very unlikely for a true code.
-                return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped ${code} - Fake Code - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
+                if (code.length > 26 || code.length < 16 || (numeric - lowercase - uppercase) > 8) { //Error over 8 is statistically very unlikely for a true code.
+                    return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped ${code} - Fake Code - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
+                }
             }
+
 
             if (usedTokens.includes(code)) return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(255,228,138) Sniped ${code} - Already checked - Seen in ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
             phin({
