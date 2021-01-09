@@ -1,6 +1,6 @@
 {
   "name": "nitro-sniper-enhanced",
-  "version": "3.2.0",
+  "version": "0.0.0-development",
   "main": "index.js",
   "license": "GPL-3.0-or-later",
   "dependencies": {
@@ -11,5 +11,21 @@
     "bufferutil": "^4.0.1",
     "erlpack": "^0.1.3",
     "utf-8-validate": "^5.0.2"
+  },
+  "scripts": {
+    "semantic-release": "semantic-release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GiorgioBrux/nitro-sniper.git"
+  },
+  "devDependencies": {
+    "semantic-release": "^17.3.1",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/changelog": "^5.0.1"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "pkgRoot": "build"
   }
 }
