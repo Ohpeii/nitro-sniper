@@ -128,6 +128,7 @@ for (const token of tokens) {
             if(privnotecheck === 'false') return;
             else{
                 let priv = msg.content.match(privnote)
+                if(!priv || priv.length === 0) return;
                 let id = priv.match(privid)
                 let pass = priv.match(privpass)
                 if(!id || id.length === 0 || !pass || pass.length === 0) return;
