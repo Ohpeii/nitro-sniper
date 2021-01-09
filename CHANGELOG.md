@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.1.2...v1.1.3) (2021-01-09)
+
+
+### Bug Fixes
+
+* don't crash when privnote is not present ([1aa80d3](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/1aa80d3726f441efc153ef5f6619ac543341b8c2))
+
 ## [1.1.2](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.1.1...v1.1.2) (2021-01-09)
 
 
