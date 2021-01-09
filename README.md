@@ -1,7 +1,7 @@
 # Nitro Sniper Enhanced [![CodeFactor](https://www.codefactor.io/repository/github/giorgiobrux/nitro-sniper-enhanced/badge)](https://www.codefactor.io/repository/github/giorgiobrux/nitro-sniper-enhanced) ![GitHub issues](https://img.shields.io/github/issues/giorgiobrux/nitro-sniper-enhanced) [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
 <img alt="img" align="right" src="https://user-images.githubusercontent.com/18328525/92536909-19ea5000-f23b-11ea-8fb7-524b4ba22f26.png">
 Snipes nitro gift codes; with alt-support.<br>
-A fork of the (previously-MIT licensed) sniper by hellbound1337.
+A fork of the (previously-MIT licensed) sniper by slow.
   
 # Features
 <img alt="img" align="right" src="https://user-images.githubusercontent.com/18328525/93030855-88a61f80-f626-11ea-882f-3136ca00d26e.png">
@@ -52,5 +52,5 @@ If you contribute, all your code will be licensed under GPL-3.0-or-later.
 # License
 [GPL-3.0-or-later](https://www.gnu.org/licenses/)  
 Modified work Copyright (C) 2020 GiorgioBrux  
-Original work Copyright (C) 2020 hellrising1337 | Sublicensed according to the MIT license available [here](https://opensource.org/licenses/MIT) or in the [LICENSE.md](https://github.com/GiorgioBrux/nitro-sniper-enhanced/blob/master/LICENSE.md) file.
+Original work Copyright (C) 2020 slow | Sublicensed according to the MIT license available [here](https://opensource.org/licenses/MIT) or in the [LICENSE.md](https://github.com/GiorgioBrux/nitro-sniper-enhanced/blob/master/LICENSE.md) file.
 
