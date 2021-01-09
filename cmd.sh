@@ -24,4 +24,15 @@ if [ -z "$useMain" ]; then
   useMain="false"
 fi
 
+if [ -z "$legitimacycheck" ]; then
+  printf "Info: legitimacycheck is not set. Defaulting to false..."
+  legitimacycheck="false"
+fi
+
+if [ -z "$obfuscationcheck" ]; then
+  printf "Info: obfuscationcheck is not set. Defaulting to false..."
+  obfuscationcheck="false"
+fi
+
+
 node .
