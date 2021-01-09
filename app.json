@@ -30,6 +30,11 @@
          "description": "Does some magic to remove obfuscation from codes but will slow the sniper down",
          "required": true,
          "value": "true"
+      },
+      "privnotecheck": {
+         "description": "Does some magic to check for privnotes link. Little performance impact",
+         "required": true,
+         "value": "true"
       }
    }
 }

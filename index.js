@@ -15,6 +15,7 @@ const regex = new RegExp(/(discord\.gift\/|discord\.com\/gifts\/|discordapp\.com
 const dotenv = require('dotenv').config({path: 'dotenv'});
 const phin = require('phin').unpromisified;
 const chalk = require('chalk');
+const {retrievePrivnote} = require("privnote");
 
 const {Client, WebhookClient, RichEmbed} = require('discord.js');
 
@@ -24,6 +25,7 @@ const mainToken = process.env.mainToken;
 let webhookUrl = process.env.webhookUrl;
 let legitimacycheck = process.env.legitimacycheck;
 let obfuscationcheck = process.env.obfuscationcheck;
+let privnotecheck = process.env.privnotecheck;
 let usedTokens = [];
 
 if (useMain === 'true' && mainToken != null) tokens.unshift(mainToken);
@@ -119,7 +121,18 @@ for (const token of tokens) {
 
     client.on('message', async msg => {
         let codes = msg.content.match(regex);
-        if (!codes || codes.length === 0) return;
+        if (!codes || codes.length === 0) {
+            if(privnotecheck === 'false') return;
+            else{
+                let privid = msg.content.match("(?<=privnote.com\/)[^\\s]+")
+                if(!privid || privid.length === 0) return;
+                else{
+                    let retrieved = await retrievePrivnote(privid);
+                    codes = retrieved.match(regex);
+                    if(!codes || codes.length === 0) return;
+                }
+            }
+        }
         for (let code of codes) {
             let start = new Date();
 

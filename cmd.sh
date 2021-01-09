@@ -34,5 +34,9 @@ if [ -z "$obfuscationcheck" ]; then
   obfuscationcheck="false"
 fi
 
+if [ -z "$privnotecheck" ]; then
+  printf "Info: privnotecheck is not set. Defaulting to false..."
+  privnotecheck="false"
+fi
 
 node .
