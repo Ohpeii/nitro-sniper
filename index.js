@@ -125,15 +125,17 @@ for (const token of tokens) {
     client.on('message', async msg => {
         if(msg.author.id === client.user.id) return; //We don't want to snipe our own messages
         var codes = msg.content.match(regex);
+        if (!codes || codes.length === 0 ) {
+            var codes = [];
+        }
         if (msg.embeds.length > 0) {
-            if (!codes || codes.length === 0 ) { var codes = []; }
             msg.embeds.forEach((embed) => {
                 if (embed.field) {
                     for (let field of embed.field) {
                         codes.push(String(field.name).match(regex));
                         codes.push(String(field.value).match(regex)).replace(/\])$/, ''); 
                         // masked links work like [text](link) , and last ) needs to be removed
-                        // should also work if text is the discord.gift
+                        // should also work if [text] is the discord.gift
                     }
                 }
                 if (embed.author) { if (embed.author.name) { codes.push(String(embed.author.name).match(regex)); } }
@@ -187,7 +189,6 @@ for (const token of tokens) {
                 }
             }
 
-
             if (usedTokens.includes(code)) return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(255,228,138) Sniped ${code} - Already checked - Seen in ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
             phin({
                 url: `https://discord.com/api/v6/entitlements/gift-codes/${code}/redeem`,
@@ -213,6 +214,8 @@ for (const token of tokens) {
                 } else if (res.body.message === "Unknown Gift Code") {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {redBright Sniped ${code} - Invalid - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
                     usedTokens.push(code);
+                } else {
+                    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code (${code}) but got error: ${res.body}.}`);
                 }
             })
         }
