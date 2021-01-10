@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.1.5...v1.1.6) (2021-01-10)
+
+
+### Bug Fixes
+
+* fix ci once and for all ([1d56b38](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/1d56b385f4c5ed107d0655a86a104261738d7869))
+
 ## [1.1.5](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.1.4...v1.1.5) (2021-01-10)
 
 
