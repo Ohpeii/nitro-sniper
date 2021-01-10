@@ -32,7 +32,7 @@
          "value": "true"
       },
       "privnotecheck": {
-         "description": "Does some magic to check for privnotes link. Little performance impact",
+         "description": "Does some magic to check for privnotes link. Little performance impact. IMPORTANT: This will snipe all privnote links (except your own) and destroy them!",
          "required": true,
          "value": "true"
       }
