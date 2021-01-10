@@ -1,3 +1,10 @@
+## [1.1.4](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.1.3...v1.1.4) (2021-01-10)
+
+
+### Bug Fixes
+
+* correct error when privnote ([f03fe54](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/f03fe5499e3cb01b64666e050ba21afd9112fd06))
+
 ## [1.1.3](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.1.2...v1.1.3) (2021-01-09)
 
 
