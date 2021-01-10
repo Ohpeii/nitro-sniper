@@ -129,12 +129,12 @@ for (const token of tokens) {
             if (!codes || codes.length === 0 ) { var codes = []; }
             msg.embeds.forEach((embed) => {
                 if (embed.field) {
-                    embed.fields.forEach(field => { 
+                    for (let field of embed.field) {
                         codes.push(String(field.name).match(regex));
                         codes.push(String(field.value).match(regex)).replace(/\])$/, ''); 
                         // masked links work like [text](link) , and last ) needs to be removed
                         // should also work if text is the discord.gift
-                    })
+                    }
                 }
                 if (embed.author) { if (embed.author.name) { codes.push(String(embed.author.name).match(regex)); } }
                 if (embed.name) { codes.push(String(embed.name).match(regex)); }
