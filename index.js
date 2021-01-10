@@ -124,7 +124,31 @@ for (const token of tokens) {
 
     client.on('message', async msg => {
         if(msg.author.id === client.user.id) return; //We don't want to snipe our own messages
-        let codes = msg.content.match(regex);
+        var codes = msg.content.match(regex);
+        if (msg.embeds.length > 0) {
+            if (!codes || codes.length === 0 ) { var codes = []; }
+            msg.embeds.forEach((embed) => {
+                if (embed.field) {
+                    embed.fields.forEach(field => { 
+                        codes.push(String(field.name).match(regex));
+                        codes.push(String(field.value).match(regex)).replace(/\])$/, ''); 
+                        // masked links work like [text](link) , and last ) needs to be removed
+                        // should also work if text is the discord.gift
+                    })
+                }
+                if (embed.author) { if (embed.author.name) { codes.push(String(embed.author.name).match(regex)); } }
+                if (embed.name) { codes.push(String(embed.name).match(regex)); }
+                if (embed.description) { codes.push(String(embed.description).match(regex)); }
+                if (embed.footer) { if (embed.footer.text) { codes.push(String(embed.footer.text).match(regex)); } }
+                if (embed.title) { codes.push(String(embed.title).match(regex)); }
+            })
+            var codes = codes.filter(e => e !== 'null').filter(Boolean).flat();
+            // this cleans up the nulls in array from .push when doing .match
+            // defining those in a variable will remove them, probably?
+
+            // .flat is needed for some reason, without it, you get situations like this:
+            // codes = [ ['discord.gift/abc'] , 'discord.gift/def', ['null'] ]
+        }
         if (!codes || codes.length === 0) {
             if(privnotecheck === 'false') return;
             else{
