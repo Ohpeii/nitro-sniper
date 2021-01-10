@@ -1,3 +1,12 @@
+## [1.1.5](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.1.4...v1.1.5) (2021-01-10)
+
+
+### Bug Fixes
+
+* change registry url to the correct one ([7d1c905](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/7d1c905af71be7d0e4ce2f03dc7dab54a66ce0f7))
+* **notes:** convert to string before matching ([655367e](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/655367e18fd86fcc93f00a5c564bc5cb0f6b7349))
+* don't snipe own messages ([607bf7c](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/607bf7cc06a0098275af821382540c16fd4667d1))
+
 ## [1.1.4](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.1.3...v1.1.4) (2021-01-10)
 
 
