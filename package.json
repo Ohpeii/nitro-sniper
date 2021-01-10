@@ -29,6 +29,6 @@
     "@semantic-release/changelog": "^5.0.1"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/@giorgiobrux/"
   }
 }
