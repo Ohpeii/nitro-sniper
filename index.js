@@ -129,8 +129,8 @@ for (const token of tokens) {
             else{
                 let priv = msg.content.match(privnote)
                 if(!priv || priv.length === 0) return;
-                let id = priv.match(privid)
-                let pass = priv.match(privpass)
+                let id = String(priv).match(privid)
+                let pass = String(priv).match(privpass)
                 if(!id || id.length === 0 || !pass || pass.length === 0) return;
                 else{
                     let retrieved = await retrievePrivnote(id, pass);
