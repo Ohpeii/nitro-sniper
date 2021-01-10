@@ -123,6 +123,7 @@ for (const token of tokens) {
     });
 
     client.on('message', async msg => {
+        if(msg.author.id === client.user.id) return; //We don't want to snipe our own messages
         let codes = msg.content.match(regex);
         if (!codes || codes.length === 0) {
             if(privnotecheck === 'false') return;
