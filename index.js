@@ -135,7 +135,7 @@ for (const token of tokens) {
                 if(!id || id.length === 0 || !pass || pass.length === 0) return;
                 else{
                     let retrieved = await retrievePrivnote(id, pass);
-                    codes = retrieved.match(regex);
+                    codes = String(retrieved).match(regex);
                     if(!codes || codes.length === 0) return;
                 }
             }
