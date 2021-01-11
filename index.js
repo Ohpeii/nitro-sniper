@@ -301,13 +301,12 @@ for (const token of tokens) {
                     usedTokens.push(code);
                 } else if (res.body.message === "You need to verify your e-mail in order to perform this action.")
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the main token doesn't have a verified e-mail.}`);
-                } else {
+                else {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code (${code}) but got error: ${res.body.message}.}`);
                 }
+            });
 
 
-
-            })
         }
     })
 
