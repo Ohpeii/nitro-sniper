@@ -26,7 +26,10 @@ const {Client, WebhookClient, RichEmbed} = require('discord.js');
 const useMain = process.env.useMain;
 const tokens = process.env.guildTokens.split(',').filter(item => item);
 const mainToken = process.env.mainToken;
-let webhookUrl = process.env.webhookUrl;
+
+let nitro_webhookUrl = process.env.nitro_webhookUrl;
+let notes_webhookUrl = process.env.notes_webhookUrl;
+
 let legitimacyCheck = process.env.legitimacyCheck;
 let obfuscationCheck = process.env.obfuscationCheck;
 let notesCheck = process.env.privnotecheck;
@@ -47,37 +50,72 @@ console.log(`%c    _   ___ __                _____       _
 console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Welcome!}`);
 console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Running version} {blueBright.bold ${version}}{blueBright .}`);
 console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {redBright This program is licensed under GPL-3.0-or-later and provided free of charge at https://github.com/GiorgioBrux/nitro-sniper-enhanced.}`);
-if (webhookUrl != null) {
-    const webhooktoken = /[^/]*$/.exec(webhookUrl)[0];
-    const webhookid = webhookUrl.replace(/^.*\/(?=[^\/]*\/[^\/]*$)|\/[^\/]*$/g, '');
-    const webhookclient = new WebhookClient(webhookid, webhooktoken);
-    if (webhooktoken == null || webhookid == null || webhooktoken.length < webhookid.length || !/https:\/\/(ptb\.|canary\.|)(discordapp|discord)\.com\/api\/webhooks\/[0-9]+\/.+/g.test(webhookUrl)) {
-        console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red The webhook url is not valid. Skipping...}`);
-        webhookUrl = null;
-    } else
-        console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Using webhook with id: [${webhookid}] and token: [${webhooktoken}].}`);
 
-    function send_webhook(res_type, guild, giver, tokenname, timetaken, code, msgurl) {
-        const embed = new RichEmbed()
-            .setTitle(`Sniped successfully!`)
-            .setColor('#1ce829')
-            .addField('Where', `${guild}`, true)
-            .addField('Account used', `${tokenname}`, true)
-            .addField('Giver', `${giver}`, true)
-            .addField('Time taken', `${timetaken}`, true)
-            .addField('Type of sub', `${res_type}`, true)
-            .addField('Giftcode', `${code}`, true)
-            .addField('​', `[Click here for the message.](${msgurl})`, false);
-        webhookclient.send('', {
-            username: 'Nitro Sniper',
-            avatarURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS0JCyNz1WwaTkXB3jcr0MlMLIwXAsHjhoIRw&usqp=CAU',
-            embeds: [embed]
-        }).catch(err => {
-            console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to send webhook embed but got error: ${err}.}`);
-        });
+
+//Nitro Webhook
+function check_webhook(webhookUrl, type) {
+    if(webhookUrl === ''){
+        console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright The ${type} webhook is empty, skipping...}`);
+        return null;
     }
 
+
+    const webhooktoken = /[^/]*$/.exec(webhookUrl)[0];
+    const webhookid = webhookUrl.replace(/^.*\/(?=[^\/]*\/[^\/]*$)|\/[^\/]*$/g, '');
+    if (webhooktoken == null || webhookid == null || webhooktoken.length < webhookid.length || !/https:\/\/(ptb\.|canary\.|)(discordapp|discord)\.com\/api\/webhooks\/[0-9]+\/.+/g.test(webhookUrl)) {
+        console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red The ${type} webhook url is not valid. Skipping...}`);
+        return null;
+    } else
+        console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Using ${type} webhook with id: [${webhookid}] and token: [${webhooktoken}].}`);
+    return new WebhookClient(webhookid, webhooktoken);
 }
+
+nitro_webhookclient = check_webhook(nitro_webhookUrl, 'nitro');
+notes_webhookclient = check_webhook(notes_webhookUrl, 'notes');
+
+
+function send_webhook_nitro(res_type, guild, giver, tokenname, timetaken, code, msgurl) {
+    if (nitro_webhookclient === null) return;
+    const embed = new RichEmbed()
+        .setTitle(`Sniped gift successfully!`)
+        .setColor('#1ce829')
+        .addField('Where', `${guild}`, true)
+        .addField('Account used', `${tokenname}`, true)
+        .addField('Giver', `${giver}`, true)
+        .addField('Time taken', `${timetaken}`, true)
+        .addField('Type of sub', `${res_type}`, true)
+        .addField('Giftcode', `${code}`, true)
+        .addField('​', `[Click here for the message.](${msgurl})`, false);
+    nitro_webhookclient.send('', {
+        username: 'Nitro Sniper',
+        avatarURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS0JCyNz1WwaTkXB3jcr0MlMLIwXAsHjhoIRw&usqp=CAU',
+        embeds: [embed]
+    }).catch(err => {
+        console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to send nitro webhook embed but got error: ${err}.}`);
+    });
+}
+
+function send_webhook_notes(noteweb, guild, giver, tokenname, content, msgurl) {
+    if (notes_webhookUrl === null) return;
+    const embed = new RichEmbed()
+        .setTitle('Sniped note successfully!')
+        .setColor('#1ce5e8')
+        .addField('Where', `${guild}`, true)
+        .addField('Account used', `${tokenname}`, true)
+        .addField('​', '​', true) //Dummy field
+        .addField('Sender', `${giver}`, true)
+        .addField('Type', `${noteweb}`, true)
+        .addField('Content', `${content}`, false)
+        .addField('​', `[Click here for the message.](${msgurl})`, false);
+    notes_webhookclient.send('', {
+        username: 'Nitro Sniper',
+        avatarURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS0JCyNz1WwaTkXB3jcr0MlMLIwXAsHjhoIRw&usqp=CAU',
+        embeds: [embed]
+    }).catch(err => {
+        console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to send notes webhook embed but got error: ${err}.}`);
+    });
+}
+
 if (!tokens || tokens.length === 0) {
     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red There is no token to login to, please check your configuration.}`);
     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Quitting...}`);
@@ -170,6 +208,7 @@ for (const token of tokens) {
                             if (!data || data.length === 0)
                                 return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Non-existant/Already destroyed - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
                             codes = data.match(regex);
+                            send_webhook_notes('privnote.com', (msg.guild ? msg.guild.name : "DMs"), msg.author.tag, client.user.tag, data, msg.url);
                             if (writeNotes === 'true') {
 
                                 id = id.replace(/[^/\w\s]/gi, ''); //Make id filename-safe
@@ -179,7 +218,8 @@ for (const token of tokens) {
                                     else
                                         console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Saved to file /notes/privnote${id}.txt - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
                                 });
-                            }
+                            } else console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
+
                         }
                     })
                     if (!codes || codes.length === 0) return;
@@ -230,11 +270,12 @@ for (const token of tokens) {
                 } else if ('subscription_plan' in res.body) {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(28,232,41) Sniped ${code} - Success! - ${res.body.subscription_plan.name} - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
                     usedTokens.push(code);
-                    if (webhookUrl !== null) send_webhook(res.body.subscription_plan.name, (msg.guild ? msg.guild.name : "DMs"), msg.author.tag, client.user.tag, end, code, msg.url);
+                    send_webhook_nitro(res.body.subscription_plan.name, (msg.guild ? msg.guild.name : "DMs"), msg.author.tag, client.user.tag, end, code, msg.url);
                 } else if (res.body.message === "Unknown Gift Code") {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {redBright Sniped ${code} - Invalid - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
                     usedTokens.push(code);
-                }
+                } else if(res.body.message === "You need to verify your e-mail in order to perform this action.")
+                    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code (${code}) but the main token doesn't have a verified e-mail.}`);
             })
         }
     })
