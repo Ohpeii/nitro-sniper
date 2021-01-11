@@ -133,7 +133,7 @@ for (const token of tokens) {
                 if (embed.fields) {
                     for (let field of embed.fields) {
                         codes.push(String(field.name).match(regex));
-                        codes.push(String(field.value).replace(/\]\)$/, '').match(regex)); 
+                        codes.push(String(field.value).replace(/[\]\)]$/gm, '').match(regex));
                     }
                 }
                 if (embed.author) { if (embed.author.name) { codes.push(String(embed.author.name).match(regex)); } }
