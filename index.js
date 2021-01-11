@@ -91,6 +91,12 @@ if (obfuscationCheck !== 'true' && obfuscationCheck !== 'false')
     console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) obfuscationCheck is not set correctly or is undefined. Defaulting to false.}`);
 if (notesCheck !== 'true' && notesCheck !== 'false')
     console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) notesCheck is not set correctly or is undefined. Defaulting to false.}`);
+if (writeNotes !== 'true' && writeNotes !== 'false')
+    console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) writeNotes is not set correctly or is undefined. Defaulting to false.}`);
+else if (writeNotes === 'true')
+    if (!fs.existsSync("./notes"))
+        fs.mkdirSync("./notes") //Create notes folder if it doesn't exist
+
 
 for (const token of tokens) {
     const client = new Client({
@@ -165,8 +171,7 @@ for (const token of tokens) {
                                 return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Non-existant/Already destroyed - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
                             codes = data.match(regex);
                             if (writeNotes === 'true') {
-                                if (!fs.existsSync("./notes"))
-                                    fs.mkdirSync("./notes") //Create notes folder if it doesn't exist
+
                                 id = id.replace(/[^/\w\s]/gi, ''); //Make id filename-safe
                                 fs.writeFile(`./notes/privnote-${id}.txt`, data, function (err) {
                                     if (err)
