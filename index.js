@@ -18,7 +18,7 @@ const privpass = new RegExp(/[^#]*$/);
 const dotenv = require('dotenv').config({path: 'dotenv'});
 const phin = require('phin').unpromisified;
 const chalk = require('chalk');
-const {retrievePrivnote} = require("privnote");
+const CryptoJS = require("crypto-js");
 
 const {Client, WebhookClient, RichEmbed} = require('discord.js');
 
@@ -126,17 +126,45 @@ for (const token of tokens) {
         if(msg.author.id === client.user.id) return; //We don't want to snipe our own messages
         let codes = msg.content.match(regex);
         if (!codes || codes.length === 0) {
-            if(privnotecheck === 'false') return;
-            else{
-                let priv = msg.content.match(privnote)
-                if(!priv || priv.length === 0) return;
-                let id = String(priv).match(privid)
-                let pass = String(priv).match(privpass)
-                if(!id || id.length === 0 || !pass || pass.length === 0) return;
-                else{
-                    let retrieved = await retrievePrivnote(id, pass);
-                    codes = String(retrieved).match(regex);
-                    if(!codes || codes.length === 0) return;
+            if (privnotecheck === 'false') return;
+            else {
+                let priv = msg.content.match(privnote).splice(0, 1).toString(); //Why is the splice necessary? No idea
+                if (!priv || priv.length === 0) return;
+                let id = priv.match(privid).splice(0, 1).toString();
+                let pass = priv.match(privpass).splice(0, 1).toString();
+                if (!id || !pass || id === pass) return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote ${id}#${pass} - Invalid URL - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
+                else {
+                    phin({
+                        url: `https://privnote.com/${id}`,
+                        method: 'DELETE',
+                        parse: 'json',
+                        headers: {
+                            'Content-type': 'application/x-www-form-urlencoded',
+                            'Content-Length': '0',
+                            'DNT': '1',
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Origin': 'https:\/\/privnote.com',
+                            'Referer': 'https:\/\/privnote.com\/hidden',
+                            'Sec-Fetch-Dest': 'empty',
+                            'Sec-Fetch-Mode': 'cors',
+                            'Sec-Fetch-Site': 'same-origin',
+                            'User-Agent': userAgent
+                        }
+                    }, (err, res) => {
+                        if (err)
+                            return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Connection error: ${err} - Resp: ${res} ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
+                        else if (res.body.data.length === 0)
+                            return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Non-existant/Already destroyed - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
+                        else { //Decrypt gibberish-aes
+                            let data = CryptoJS.AES.decrypt(res.body.data, pass);
+                            data = data.toString(CryptoJS.enc.Utf8)
+                            if (!data || data.length === 0)
+                                return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Non-existant/Already destroyed - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
+                            codes = data.match(regex);
+                            });
+                        }
+                    })
+                    if (!codes || codes.length === 0) return;
                 }
             }
         }
