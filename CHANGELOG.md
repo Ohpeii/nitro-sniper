@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.4.1...v1.4.2) (2021-01-11)
+
+
+### Performance Improvements
+
+* disable useless caching ([ac72336](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/ac7233643085232333f43279d80a3bd79a8b06b6))
+
 ## [1.4.1](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.4.0...v1.4.1) (2021-01-11)
 
 
