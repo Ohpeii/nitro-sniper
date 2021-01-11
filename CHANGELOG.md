@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.2.1...v1.2.2) (2021-01-11)
+
+
+### Bug Fixes
+
+* solve [#26](https://github.com/giorgiobrux/nitro-sniper-enhanced/issues/26) ([884112e](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/884112ec3eb7867ec635285730dba593dea399fe))
+
 ## [1.2.1](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.2.0...v1.2.1) (2021-01-11)
 
 
