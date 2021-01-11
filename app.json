@@ -12,8 +12,12 @@
          "description": "Your alt accounts tokens. Required if useMain is set to false. (Split multiple tokens with \",\")",
          "required": false
       },
-      "webhookUrl": {
+      "nitro_webhookUrl": {
          "description": "Put here your webhook url if you wish to receive messages when a gift is redeemed.",
+         "required": false
+      },
+      "notes_webhookUrl": {
+         "description": "Put here your webhook url if you wish to receive messages when notes are sniped.",
          "required": false
       },
       "useMain": {
@@ -21,20 +25,30 @@
          "required": true,
          "value": "false"
       },
-      "legitimacycheck": {
+      "legitimacyCheck": {
          "description": "Does some magic to check if the code could be legitimate but will slow the sniper down",
          "required": true,
          "value": "true"
       },
-      "obfuscationcheck": {
+      "obfuscationCheck": {
          "description": "Does some magic to remove obfuscation from codes but will slow the sniper down",
          "required": true,
          "value": "true"
       },
-      "privnotecheck": {
+      "notesCheck": {
          "description": "Does some magic to check for privnotes link. Little performance impact. IMPORTANT: This will snipe all privnote links (except your own) and destroy them!",
          "required": true,
          "value": "true"
+      },
+      "writeNotes": {
+         "description": "Whether you want all sniped notes to be written in the ./notes folder. Doesn't slow the sniper down.",
+         "required": true,
+         "value": "true"
+      },
+      "tokenStatus": {
+         "description": "The status of guildTokens: {online, idle, offline, dnd}",
+         "required": true,
+         "value": "online"
       }
    }
 }
