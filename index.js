@@ -175,8 +175,9 @@ for (const token of tokens) {
         if (!codes || codes.length === 0) {
             if (notesCheck === 'false') return;
             else {
-                let priv = msg.content.match(privnote).splice(0, 1).toString(); //Why is the splice necessary? No idea
+                let priv = msg.content.match(privnote);
                 if (!priv || priv.length === 0) return;
+                priv = priv.splice(0, 1).toString(); //Why is the splice necessary? No idea
                 let id = priv.match(privid).splice(0, 1).toString();
                 let pass = priv.match(privpass).splice(0, 1).toString();
                 if (!id || !pass || id === pass) return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote ${id}#${pass} - Invalid URL - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
