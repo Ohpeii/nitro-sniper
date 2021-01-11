@@ -7,36 +7,4 @@
 #
 #You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-if [ -z "$mainToken" ]; then
-  printf "Error: mainToken is empty. Quitting..."
-  exit 0
-elif [ -z "$guildTokens" ]; then
-  if [ "$useMain" = "true" ] || [ "$useMain" = true ]; then
-    printf "Info: running only on mainToken because guildTokens is empty."
-  else
-    printf "Error: guildTokens is empty and useMain is set to false/undefined. Set it to true or add slave tokens. Quitting..."
-    exit 0
-  fi
-fi
-
-if [ -z "$useMain" ]; then
-  printf "Info: useMain is not set. Defaulting to false..."
-  useMain="false"
-fi
-
-if [ -z "$legitimacycheck" ]; then
-  printf "Info: legitimacycheck is not set. Defaulting to false..."
-  legitimacycheck="false"
-fi
-
-if [ -z "$obfuscationcheck" ]; then
-  printf "Info: obfuscationcheck is not set. Defaulting to false..."
-  obfuscationcheck="false"
-fi
-
-if [ -z "$privnotecheck" ]; then
-  printf "Info: privnotecheck is not set. Defaulting to false..."
-  privnotecheck="false"
-fi
-
 node .
