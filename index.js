@@ -19,6 +19,7 @@ const dotenv = require('dotenv').config({path: 'dotenv'});
 const phin = require('phin').unpromisified;
 const chalk = require('chalk');
 const CryptoJS = require("crypto-js");
+fs = require('fs');
 
 const {Client, WebhookClient, RichEmbed} = require('discord.js');
 
@@ -29,6 +30,7 @@ let webhookUrl = process.env.webhookUrl;
 let legitimacycheck = process.env.legitimacycheck;
 let obfuscationcheck = process.env.obfuscationcheck;
 let privnotecheck = process.env.privnotecheck;
+let writeNotes = process.env.writeNotes;
 let usedTokens = [];
 
 if (useMain === 'true' && mainToken != null) tokens.unshift(mainToken);
@@ -160,7 +162,17 @@ for (const token of tokens) {
                             if (!data || data.length === 0)
                                 return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Non-existant/Already destroyed - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
                             codes = data.match(regex);
-                            });
+                            if(writeNotes === 'true'){
+                                if (!fs.existsSync("./notes"))
+                                    fs.mkdirSync("./notes") //Create notes folder if it doesn't exist
+                                id = id.replace(/[^/\w\s]/gi, ''); //Make id filename-safe
+                                fs.writeFile(`./notes/privnote-${id}.txt`, data, function (err) {
+                                    if (err)
+                                        console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Couldn't save it to file because of err: ${err.message} - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
+                                    else
+                                        console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Saved to file /notes/privnote${id}.txt - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
+                                });
+                            }
                         }
                     })
                     if (!codes || codes.length === 0) return;

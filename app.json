@@ -35,6 +35,11 @@
          "description": "Does some magic to check for privnotes link. Little performance impact. IMPORTANT: This will snipe all privnote links (except your own) and destroy them!",
          "required": true,
          "value": "true"
+      },
+      "writeNotes": {
+         "description": "Whether you want all sniped notes to be written in the ./notes folder. Doesn't slow the sniper down.",
+         "required": true,
+         "value": "true"
       }
    }
 }
