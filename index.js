@@ -32,7 +32,7 @@ let notes_webhookUrl = process.env.notes_webhookUrl;
 
 let legitimacyCheck = process.env.legitimacyCheck;
 let obfuscationCheck = process.env.obfuscationCheck;
-let notesCheck = process.env.privnotecheck;
+let notesCheck = process.env.notesCheck;
 let writeNotes = process.env.writeNotes;
 let usedTokens = [];
 
