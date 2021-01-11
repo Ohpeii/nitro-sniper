@@ -1,3 +1,19 @@
+# [1.2.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.1.6...v1.2.0) (2021-01-11)
+
+
+### Bug Fixes
+
+* [#17](https://github.com/giorgiobrux/nitro-sniper-enhanced/issues/17) working privnote support ([30043aa](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/30043aa826e72c284c1be2fba385a24d0ab27216))
+* add missing warning ([8d737fd](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/8d737fd319b93092c39080748cad67f798051c4f))
+* correct wrong env variables ([b46eda5](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/b46eda5f2d147c717f413e4803d70a614c44cbb8))
+* remove bad sync from loop ([931f3e0](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/931f3e00fd5f5b9719fe42c63fa609d1a204dd9e))
+
+
+### Features
+
+* webhook for notes ([311134f](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/311134fe069cdb14c6ab2c33d7835dfbe67a4bf4))
+* write sniped notes to file ([07f03bd](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/07f03bdf202f99eec0b420fa72e87c9734d24db9))
+
 ## [1.1.6](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.1.5...v1.1.6) (2021-01-10)
 
 
