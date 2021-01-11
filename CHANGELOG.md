@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.2.2...v1.3.0) (2021-01-11)
+
+
+### Features
+
+* close [#21](https://github.com/giorgiobrux/nitro-sniper-enhanced/issues/21) - add token status choice ([1c25137](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/1c25137618dedb580986961ad72e7a3fff5397b2))
+
 ## [1.2.2](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.2.1...v1.2.2) (2021-01-11)
 
 
