@@ -27,8 +27,8 @@ const useMain = process.env.useMain;
 const tokens = process.env.guildTokens.split(',').filter(item => item);
 const mainToken = process.env.mainToken;
 let webhookUrl = process.env.webhookUrl;
-let legitimacycheck = process.env.legitimacycheck;
-let obfuscationcheck = process.env.obfuscationcheck;
+let legitimacyCheck = process.env.legitimacyCheck;
+let obfuscationCheck = process.env.obfuscationCheck;
 let notesCheck = process.env.privnotecheck;
 let writeNotes = process.env.writeNotes;
 let usedTokens = [];
@@ -85,10 +85,10 @@ if (!tokens || tokens.length === 0) {
 }
 if (useMain !== 'true' && useMain !== 'false')
     console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) useMain is not set correctly or is undefined. Defaulting to false.}`);
-if (legitimacycheck !== 'true' && legitimacycheck !== 'false')
-    console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) legitimacycheck is not set correctly or is undefined. Defaulting to false.}`);
-if (obfuscationcheck !== 'true' && obfuscationcheck !== 'false')
-    console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) obfuscationcheck is not set correctly or is undefined. Defaulting to false.}`);
+if (legitimacyCheck !== 'true' && legitimacyCheck !== 'false')
+    console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) legitimacyCheck is not set correctly or is undefined. Defaulting to false.}`);
+if (obfuscationCheck !== 'true' && obfuscationCheck !== 'false')
+    console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) obfuscationCheck is not set correctly or is undefined. Defaulting to false.}`);
 
 for (const token of tokens) {
     const client = new Client({
@@ -183,7 +183,7 @@ for (const token of tokens) {
             let start = new Date();
 
             code = code.replace(/(discord\.gift\/|discord\.com\/gifts\/|discordapp\.com\/gifts\/)/gmi, '');
-            if (obfuscationcheck === 'true') {
+            if (obfuscationCheck === 'true') {
                 let code_no_symbols = code.replace(/\W/g, '');
                 let code_no_obfuscation = code.replace(/\W.*$/g, '');
                 if (code_no_symbols !== code_no_obfuscation) {
@@ -191,7 +191,7 @@ for (const token of tokens) {
                     else if (code_no_obfuscation.length > 26 && code_no_obfuscation < 16) code = code_no_obfuscation;
                 }
             }
-            if (legitimacycheck === 'true') {
+            if (legitimacyCheck === 'true') {
                 const numeric = code.replace(/[^0-9]/g, "").length;
                 const lowercase = code.replace(/[^a-z]+/g, "").length;
                 const uppercase = code.replace(/[^A-Z]+/g, "").length;
