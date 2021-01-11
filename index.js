@@ -124,7 +124,7 @@ for (const token of tokens) {
     });
 
     client.on('message', async msg => {
-        if(msg.author.id === client.user.id) return; //We don't want to snipe our own messages
+        if (msg.author.id === client.user.id) return; //We don't want to snipe our own messages
         let codes = msg.content.match(regex);
         if (!codes || codes.length === 0) {
             if (notesCheck === 'false') return;
@@ -162,7 +162,7 @@ for (const token of tokens) {
                             if (!data || data.length === 0)
                                 return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Non-existant/Already destroyed - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
                             codes = data.match(regex);
-                            if(writeNotes === 'true'){
+                            if (writeNotes === 'true') {
                                 if (!fs.existsSync("./notes"))
                                     fs.mkdirSync("./notes") //Create notes folder if it doesn't exist
                                 id = id.replace(/[^/\w\s]/gi, ''); //Make id filename-safe
