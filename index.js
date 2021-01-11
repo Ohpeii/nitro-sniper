@@ -172,9 +172,9 @@ for (const token of tokens) {
     });
 
     client.on('message', async msg => {
-        if(msg.author.id === client.user.id) return; //We don't want to snipe our own messages
+        if (msg.author.id === client.user.id) return; //We don't want to snipe our own messages
         var codes = msg.content.match(regex);
-        if (!codes || codes.length === 0 ) {
+        if (!codes || codes.length === 0) {
             var codes = [];
         }
         if (msg.embeds.length > 0) {
@@ -185,10 +185,22 @@ for (const token of tokens) {
                         codes.push(String(field.value).replace(/[\]\)]$/gm, '').match(regex));
                     }
                 }
-                if (embed.author) { if (embed.author.name) { codes.push(String(embed.author.name).match(regex)); } }
-                if (embed.description) { codes.push(String(embed.description).match(regex)); }
-                if (embed.footer) { if (embed.footer.text) { codes.push(String(embed.footer.text).match(regex)); } }
-                if (embed.title) { codes.push(String(embed.title).match(regex)); }
+                if (embed.author) {
+                    if (embed.author.name) {
+                        codes.push(String(embed.author.name).match(regex));
+                    }
+                }
+                if (embed.description) {
+                    codes.push(String(embed.description).match(regex));
+                }
+                if (embed.footer) {
+                    if (embed.footer.text) {
+                        codes.push(String(embed.footer.text).match(regex));
+                    }
+                }
+                if (embed.title) {
+                    codes.push(String(embed.title).match(regex));
+                }
             })
             var codes = codes.filter(e => e !== 'null').filter(Boolean).flat();
         }
@@ -271,8 +283,8 @@ for (const token of tokens) {
             }
 
             if (usedTokens.includes(code)) {
-               console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(255,228,138) Sniped[ ${code}] - Already checked - Seen in ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
-               continue;
+                console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(255,228,138) Sniped[ ${code}] - Already checked - Seen in ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
+                continue;
             }
 
             phin({
@@ -305,17 +317,16 @@ for (const token of tokens) {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code (${code}) but got error: ${res.body.message}.}`);
                 }
             });
-
-
         }
     })
+
 
     client.on('ready', () => {
         if (token === mainToken) console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blue Main token valid: ${client.user.tag} - Sniping in ${client.guilds.size} servers.}`)
         else console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {cyan Slave logged in as ${client.user.tag} - Sniping in ${client.guilds.size} servers.}`)
 
-        if(token !== mainToken) client.user.setStatus(tokenStatus)
-            .catch(function (err){
+        if (token !== mainToken) client.user.setStatus(tokenStatus)
+            .catch(function (err) {
                 console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Couldn't set status of "${token.substring(0, 10)}...": ${err}.}`)
             })
     })
