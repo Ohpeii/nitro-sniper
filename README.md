@@ -33,7 +33,9 @@ To update see [here](https://github.com/GiorgioBrux/nitro-sniper-enhanced/issues
 - Edit the dotenv file. <br>
     - To insert multiple tokens in the guildTokens variable, use `,` as a separator. <br> 
     - The useMain can be either true or false. If it's false the mainToken won't be checked to avoid destroying it.
-    - If you want to use a webhook, put the url in the webhookUrl field.
+    - If you want to use a webhook, put the url in the webhookUrl fields.
+      - There are two variables, one for nitro sniper and one for the notes sniper.
+      - If you want two different channels for notes and nitro, use two different webhooks. Otherwise use the same.
     - Others variables should be self-explanatory.
 - Run `node .`
 #### Docker
