@@ -139,7 +139,10 @@ else if (writeNotes === 'true')
 
 
 for (const token of tokens) {
-    const client = new Client({
+    const client = new Client({ //https://discord.js.org/#/docs/main/v11/typedef/ClientOptions
+        messageCacheLifetime: 1,
+        messageCacheMaxSize: 2,
+        messageSweepInterval: 5,
         disabledEvents: [
             "GUILD_UPDATE",
             "GUILD_MEMBER_ADD",
