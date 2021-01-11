@@ -130,26 +130,18 @@ for (const token of tokens) {
         }
         if (msg.embeds.length > 0) {
             msg.embeds.forEach((embed) => {
-                if (embed.field) {
-                    for (let field of embed.field) {
+                if (embed.fields) {
+                    for (let field of embed.fields) {
                         codes.push(String(field.name).match(regex));
-                        codes.push(String(field.value).match(regex)).replace(/\])$/, ''); 
-                        // masked links work like [text](link) , and last ) needs to be removed
-                        // should also work if [text] is the discord.gift
+                        codes.push(String(field.value).replace(/\]\)$/, '').match(regex)); 
                     }
                 }
                 if (embed.author) { if (embed.author.name) { codes.push(String(embed.author.name).match(regex)); } }
-                if (embed.name) { codes.push(String(embed.name).match(regex)); }
                 if (embed.description) { codes.push(String(embed.description).match(regex)); }
                 if (embed.footer) { if (embed.footer.text) { codes.push(String(embed.footer.text).match(regex)); } }
                 if (embed.title) { codes.push(String(embed.title).match(regex)); }
             })
             var codes = codes.filter(e => e !== 'null').filter(Boolean).flat();
-            // this cleans up the nulls in array from .push when doing .match
-            // defining those in a variable will remove them, probably?
-
-            // .flat is needed for some reason, without it, you get situations like this:
-            // codes = [ ['discord.gift/abc'] , 'discord.gift/def', ['null'] ]
         }
         if (!codes || codes.length === 0) {
             if(privnotecheck === 'false') return;
