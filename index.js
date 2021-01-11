@@ -89,6 +89,8 @@ if (legitimacyCheck !== 'true' && legitimacyCheck !== 'false')
     console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) legitimacyCheck is not set correctly or is undefined. Defaulting to false.}`);
 if (obfuscationCheck !== 'true' && obfuscationCheck !== 'false')
     console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) obfuscationCheck is not set correctly or is undefined. Defaulting to false.}`);
+if (notesCheck !== 'true' && notesCheck !== 'false')
+    console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) notesCheck is not set correctly or is undefined. Defaulting to false.}`);
 
 for (const token of tokens) {
     const client = new Client({
