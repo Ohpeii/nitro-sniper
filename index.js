@@ -49,11 +49,10 @@ if (webhookUrl != null) {
     const webhooktoken = /[^/]*$/.exec(webhookUrl)[0];
     const webhookid = webhookUrl.replace(/^.*\/(?=[^\/]*\/[^\/]*$)|\/[^\/]*$/g, '');
     const webhookclient = new WebhookClient(webhookid, webhooktoken);
-    if (webhooktoken == null || webhookid == null || webhooktoken.length < webhookid.length || !/https:\/\/(ptb\.|canary\.|)(discordapp|discord)\.com\/api\/webhooks\/[0-9]+\/.+/g.test(webhookUrl)){
+    if (webhooktoken == null || webhookid == null || webhooktoken.length < webhookid.length || !/https:\/\/(ptb\.|canary\.|)(discordapp|discord)\.com\/api\/webhooks\/[0-9]+\/.+/g.test(webhookUrl)) {
         console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red The webhook url is not valid. Skipping...}`);
         webhookUrl = null;
-    }
-    else
+    } else
         console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Using webhook with id: [${webhookid}] and token: [${webhooktoken}].}`);
 
     function send_webhook(res_type, guild, giver, tokenname, timetaken, code, msgurl) {
@@ -66,8 +65,8 @@ if (webhookUrl != null) {
             .addField('Time taken', `${timetaken}`, true)
             .addField('Type of sub', `${res_type}`, true)
             .addField('Giftcode', `${code}`, true)
-            .addField('​',`[Click here for the message.](${msgurl})`,false);
-        webhookclient.send( '', {
+            .addField('​', `[Click here for the message.](${msgurl})`, false);
+        webhookclient.send('', {
             username: 'Nitro Sniper',
             avatarURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS0JCyNz1WwaTkXB3jcr0MlMLIwXAsHjhoIRw&usqp=CAU',
             embeds: [embed]
@@ -172,8 +171,7 @@ for (const token of tokens) {
             let start = new Date();
 
             code = code.replace(/(discord\.gift\/|discord\.com\/gifts\/|discordapp\.com\/gifts\/)/gmi, '');
-            if(obfuscationcheck === 'true')
-            {
+            if (obfuscationcheck === 'true') {
                 let code_no_symbols = code.replace(/\W/g, '');
                 let code_no_obfuscation = code.replace(/\W.*$/g, '');
                 if (code_no_symbols !== code_no_obfuscation) {
@@ -181,7 +179,7 @@ for (const token of tokens) {
                     else if (code_no_obfuscation.length > 26 && code_no_obfuscation < 16) code = code_no_obfuscation;
                 }
             }
-            if(legitimacycheck === 'true'){
+            if (legitimacycheck === 'true') {
                 const numeric = code.replace(/[^0-9]/g, "").length;
                 const lowercase = code.replace(/[^a-z]+/g, "").length;
                 const uppercase = code.replace(/[^A-Z]+/g, "").length;
