@@ -29,7 +29,7 @@ const mainToken = process.env.mainToken;
 let webhookUrl = process.env.webhookUrl;
 let legitimacycheck = process.env.legitimacycheck;
 let obfuscationcheck = process.env.obfuscationcheck;
-let privnotecheck = process.env.privnotecheck;
+let notesCheck = process.env.privnotecheck;
 let writeNotes = process.env.writeNotes;
 let usedTokens = [];
 
@@ -127,7 +127,7 @@ for (const token of tokens) {
         if(msg.author.id === client.user.id) return; //We don't want to snipe our own messages
         let codes = msg.content.match(regex);
         if (!codes || codes.length === 0) {
-            if (privnotecheck === 'false') return;
+            if (notesCheck === 'false') return;
             else {
                 let priv = msg.content.match(privnote).splice(0, 1).toString(); //Why is the splice necessary? No idea
                 if (!priv || priv.length === 0) return;
