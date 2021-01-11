@@ -172,8 +172,26 @@ for (const token of tokens) {
     });
 
     client.on('message', async msg => {
-        if (msg.author.id === client.user.id) return; //We don't want to snipe our own messages
-        let codes = msg.content.match(regex);
+        if(msg.author.id === client.user.id) return; //We don't want to snipe our own messages
+        var codes = msg.content.match(regex);
+        if (!codes || codes.length === 0 ) {
+            var codes = [];
+        }
+        if (msg.embeds.length > 0) {
+            msg.embeds.forEach((embed) => {
+                if (embed.fields) {
+                    for (let field of embed.fields) {
+                        codes.push(String(field.name).match(regex));
+                        codes.push(String(field.value).replace(/[\]\)]$/gm, '').match(regex));
+                    }
+                }
+                if (embed.author) { if (embed.author.name) { codes.push(String(embed.author.name).match(regex)); } }
+                if (embed.description) { codes.push(String(embed.description).match(regex)); }
+                if (embed.footer) { if (embed.footer.text) { codes.push(String(embed.footer.text).match(regex)); } }
+                if (embed.title) { codes.push(String(embed.title).match(regex)); }
+            })
+            var codes = codes.filter(e => e !== 'null').filter(Boolean).flat();
+        }
         if (!codes || codes.length === 0) {
             if (notesCheck === 'false') return;
             else {
@@ -247,12 +265,16 @@ for (const token of tokens) {
                 const uppercase = code.replace(/[^A-Z]+/g, "").length;
 
                 if (code.length > 26 || code.length < 16 || (numeric - lowercase - uppercase) > 8) { //Error over 8 is statistically very unlikely for a true code.
-                    return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped ]${code}] - Fake Code - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
+                    console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped [${code}] - Fake Code - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
+                    continue;
                 }
             }
 
+            if (usedTokens.includes(code)) {
+               console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(255,228,138) Sniped[ ${code}] - Already checked - Seen in ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
+               continue;
+            }
 
-            if (usedTokens.includes(code)) return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(255,228,138) Sniped [${code}] - Already checked - Seen in ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
             phin({
                 url: `https://discord.com/api/v6/entitlements/gift-codes/${code}/redeem`,
                 method: 'POST',
@@ -279,6 +301,12 @@ for (const token of tokens) {
                     usedTokens.push(code);
                 } else if (res.body.message === "You need to verify your e-mail in order to perform this action.")
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the main token doesn't have a verified e-mail.}`);
+                } else {
+                    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code (${code}) but got error: ${res.body.message}.}`);
+                }
+
+
+
             })
         }
     })
