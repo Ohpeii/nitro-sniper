@@ -36,6 +36,8 @@ let notesCheck = process.env.notesCheck;
 let writeNotes = process.env.writeNotes;
 let usedTokens = [];
 
+let tokenStatus = process.env.tokenStatus;
+
 if (useMain === 'true' && mainToken != null) tokens.unshift(mainToken);
 console.log(`%c    _   ___ __                _____       _                   
    / | / (_) /__________     / ___/____  (_)___  ___  _____   
@@ -285,6 +287,10 @@ for (const token of tokens) {
         if (token === mainToken) console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blue Main token valid: ${client.user.tag} - Sniping in ${client.guilds.size} servers.}`)
         else console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {cyan Slave logged in as ${client.user.tag} - Sniping in ${client.guilds.size} servers.}`)
 
+        if(token !== mainToken) client.user.setStatus(tokenStatus)
+            .catch(function (err){
+                console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Couldn't set status of "${token.substring(0, 10)}...": ${err}.}`)
+            })
     })
     /*
     client.on('error', error => {

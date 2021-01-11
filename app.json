@@ -44,6 +44,11 @@
          "description": "Whether you want all sniped notes to be written in the ./notes folder. Doesn't slow the sniper down.",
          "required": true,
          "value": "true"
+      },
+      "tokenStatus": {
+         "description": "The status of guildTokens: {online, idle, offline, dnd}",
+         "required": true,
+         "value": "online"
       }
    }
 }
