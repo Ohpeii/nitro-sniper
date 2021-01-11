@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.2.0...v1.2.1) (2021-01-11)
+
+
+### Bug Fixes
+
+* fix broken notesCheck variable ([d04818c](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/d04818c36dd37672b0508abdf390e1d0a88dc264))
+
 # [1.2.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.1.6...v1.2.0) (2021-01-11)
 
 
