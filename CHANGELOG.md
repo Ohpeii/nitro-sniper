@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.3.0...v1.4.0) (2021-01-11)
+
+
+### Features
+
+* close [#19](https://github.com/giorgiobrux/nitro-sniper-enhanced/issues/19) - implement embeds ([d31a93f](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/d31a93f63c5ea4d2356508a9f5c35a310e7c05c2))
+
 # [1.3.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.2.2...v1.3.0) (2021-01-11)
 
 
