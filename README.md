@@ -12,7 +12,7 @@ A fork of the (previously-MIT licensed) sniper by slow.
 - Removes non-alphanumeric chars automatically from codes and tries to redeem.
 - Supports `code&,junk` -> `code` obfuscation.
 - Auto-detects fake codes by length or probability check.
-- It remembers all codes it tries and won't check them again. (clears on restart).
+- It remembers all codes it tries and won't check them again. (cached on disk).
 - Optional webhook support; Avatar and username set by default.
 - Will snipe privnotes searching for codes and saving the content to a file. 
 # Disclaimer
