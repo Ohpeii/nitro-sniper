@@ -1,3 +1,11 @@
+## [1.4.4](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.4.3...v1.4.4) (2021-01-12)
+
+
+### Bug Fixes
+
+* **notes:** fix destroyed privnote handling ([b6081e3](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/b6081e3218382d8828650f1783be2194610052c1))
+* **notes:** fix wrong displayed filename ([b8f3b41](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/b8f3b41b935af8ac054dd8cd06fc1ef85c369c72))
+
 ## [1.4.3](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.4.2...v1.4.3) (2021-01-12)
 
 
