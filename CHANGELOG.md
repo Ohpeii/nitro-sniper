@@ -1,3 +1,15 @@
+# [1.5.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.4.4...v1.5.0) (2021-01-12)
+
+
+### Bug Fixes
+
+* inconsistent console log ([c3c7a11](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/c3c7a11f314d5835ab251f44df7903b86684b47c))
+
+
+### Features
+
+* close [#24](https://github.com/giorgiobrux/nitro-sniper-enhanced/issues/24) - add permanent usedTokens cache ([5e47f9a](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/5e47f9aa1468d9485c5b11c10cb2a40e4c388f05))
+
 ## [1.4.4](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.4.3...v1.4.4) (2021-01-12)
 
 
