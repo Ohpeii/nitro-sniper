@@ -236,7 +236,7 @@ for (const token of tokens) {
                     }, (err, res) => {
                         if (err)
                             return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Connection error: ${err} - Resp: ${res} ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
-                        else if (res.body.data.length === 0)
+                        else if (!res.body.data || res.body.data.length === 0)
                             return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Non-existant/Already destroyed - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
                         else { //Decrypt gibberish-aes
                             let data = CryptoJS.AES.decrypt(res.body.data, pass);
