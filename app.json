@@ -49,6 +49,11 @@
          "description": "The status of guildTokens: {online, idle, offline, dnd}",
          "required": true,
          "value": "online"
+      },
+      "permanentCache": {
+         "description": "Cache usedTokens to disk. No performance impact but will increase the memory used.",
+         "required": true,
+         "value": "false"
       }
    }
 }

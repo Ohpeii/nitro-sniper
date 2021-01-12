@@ -34,6 +34,7 @@ let legitimacyCheck = process.env.legitimacyCheck;
 let obfuscationCheck = process.env.obfuscationCheck;
 let notesCheck = process.env.notesCheck;
 let writeNotes = process.env.writeNotes;
+let permanentCache = process.env.permanentCache;
 let usedTokens = [];
 
 let tokenStatus = process.env.tokenStatus;
@@ -131,12 +132,30 @@ if (obfuscationCheck !== 'true' && obfuscationCheck !== 'false')
     console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) obfuscationCheck is not set correctly or is undefined. Defaulting to false.}`);
 if (notesCheck !== 'true' && notesCheck !== 'false')
     console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) notesCheck is not set correctly or is undefined. Defaulting to false.}`);
+if (permanentCache !== 'true' && permanentCache !== 'false')
+    console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) permanentCache is not set correctly or is undefined. Defaulting to false.}`);
+else if (permanentCache === 'true')
+    if (!fs.existsSync("./usedTokens.json"))
+        console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright There is no usedTokens cache to load.}`);
+    else {
+        let file = fs.readFileSync("./usedTokens.json")
+
+        if (file.length !== 0)
+        try {
+            usedTokens = JSON.parse(file);
+        } catch (e) {
+            console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Couldn't load usedTokens cache because of error: ${e}.}`);
+            permanentCache = 'false';
+        }
+        console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Successfully read ${usedTokens.length} tokens from the usedTokens cache.}`);
+    }
+
+
 if (writeNotes !== 'true' && writeNotes !== 'false')
     console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) writeNotes is not set correctly or is undefined. Defaulting to false.}`);
 else if (writeNotes === 'true')
     if (!fs.existsSync("./notes"))
         fs.mkdirSync("./notes") //Create notes folder if it doesn't exist
-
 
 for (const token of tokens) {
     const client = new Client({ //https://discord.js.org/#/docs/main/v11/typedef/ClientOptions
@@ -307,20 +326,20 @@ for (const token of tokens) {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the main token is not valid.}`);
                 } else if (res.body.message === "This gift has been redeemed already.") {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(255,228,138) Sniped [${code}] - Already redeemed - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
-                    usedTokens.push(code);
                 } else if ('subscription_plan' in res.body) {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(28,232,41) Sniped [${code}] - Success! - ${res.body.subscription_plan.name} - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
-                    usedTokens.push(code);
                     send_webhook_nitro(res.body.subscription_plan.name, (msg.guild ? msg.guild.name : "DMs"), msg.author.tag, client.user.tag, end, code, msg.url);
                 } else if (res.body.message === "Unknown Gift Code") {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {redBright Sniped [${code}] - Invalid - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
-                    usedTokens.push(code);
                 } else if (res.body.message === "You need to verify your e-mail in order to perform this action.")
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the main token doesn't have a verified e-mail.}`);
                 else {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but got error: ${res.body.message}.}`);
                 }
             });
+            usedTokens.push(code);
+            if (permanentCache === 'true')
+                fs.writeFileSync("./usedTokens.json", JSON.stringify(usedTokens));
         }
     })
 
