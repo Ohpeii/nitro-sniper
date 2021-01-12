@@ -268,11 +268,12 @@ for (const token of tokens) {
             code = code.replace(/(discord\.gift\/|discord\.com\/gifts\/|discordapp\.com\/gifts\/)/gmi, '');
             if (obfuscationCheck === 'true') {
                 let code_no_symbols = code.replace(/\W/g, '');
-                let code_no_obfuscation = code.replace(/\W.*$/g, '');
+                let code_no_obfuscation = code.replace(/\W.*/g, '');
                 if (code_no_symbols !== code_no_obfuscation) {
                     if (code_no_symbols.length > 26 && code_no_symbols.length < 16) code = code_no_symbols;
                     else if (code_no_obfuscation.length > 26 && code_no_obfuscation < 16) code = code_no_obfuscation;
                 }
+                else if(code_no_symbols !== code) code = code_no_symbols;
             }
             if (legitimacyCheck === 'true') {
                 const numeric = code.replace(/[^0-9]/g, "").length;
