@@ -1,3 +1,10 @@
+## [1.4.3](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.4.2...v1.4.3) (2021-01-12)
+
+
+### Bug Fixes
+
+* close [#30](https://github.com/giorgiobrux/nitro-sniper-enhanced/issues/30) - fix obfuscationCheck ([21716eb](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/21716eb9c572acc81124d947a0db0fac89d846a8))
+
 ## [1.4.2](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.4.1...v1.4.2) (2021-01-11)
 
 

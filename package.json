@@ -1,6 +1,6 @@
 {
   "name": "@giorgiobrux/nitro-sniper-enhanced",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "main": "index.js",
   "license": "GPL-3.0-or-later",
   "dependencies": {
