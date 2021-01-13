@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.5.0...v1.5.1) (2021-01-13)
+
+
+### Bug Fixes
+
+* close [#23](https://github.com/giorgiobrux/nitro-sniper-enhanced/issues/23)/[#31](https://github.com/giorgiobrux/nitro-sniper-enhanced/issues/31) - handle payment source and xbox game codes ([8b106e9](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/8b106e9f8744b55e3d112dc18ac78adffe94b935))
+
 # [1.5.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.4.4...v1.5.0) (2021-01-12)
 
 
