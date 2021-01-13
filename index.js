@@ -19,6 +19,7 @@ const dotenv = require('dotenv').config({path: 'dotenv'});
 const phin = require('phin').unpromisified;
 const chalk = require('chalk');
 const CryptoJS = require("crypto-js");
+const syncrq = require('sync-request');
 fs = require('fs');
 
 const {Client, WebhookClient, RichEmbed} = require('discord.js');
@@ -53,7 +54,6 @@ console.log(`%c    _   ___ __                _____       _
 console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Welcome!}`);
 console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Running version} {blueBright.bold ${version}}{blueBright .}`);
 console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {redBright This program is licensed under GPL-3.0-or-later and provided free of charge at https://github.com/GiorgioBrux/nitro-sniper-enhanced.}`);
-
 
 function check_webhook(webhookUrl, type) {
     if (webhookUrl === '') {
@@ -149,12 +149,36 @@ else if (permanentCache === 'true')
         console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Successfully read ${usedTokens.length} tokens from the usedTokens cache.}`);
     }
 
-
 if (writeNotes !== 'true' && writeNotes !== 'false')
     console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) writeNotes is not set correctly or is undefined. Defaulting to false.}`);
 else if (writeNotes === 'true')
     if (!fs.existsSync("./notes"))
         fs.mkdirSync("./notes") //Create notes folder if it doesn't exist
+
+const ressyncq = syncrq('GET', 'https://discord.com/api/v6/users/@me/billing/payment-sources', {
+  headers: {
+    'authorization': mainToken,
+    'user-agent': userAgent,
+  }
+});
+
+var ps = JSON.parse(ressyncq.body.toString());
+
+if (ps['message'] == '401: Unauthorized') {
+    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Main token not valid: ${ps['message']}.}`)
+    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Quitting...}`)
+    process.exit();
+} else if (ps.length == 0) {
+    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Main token does not have a billing source.}`)
+    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Quitting...}`)
+    process.exit();
+} else if (ps[0]) {
+    var paymentsourceid = ps[0].id
+} else {
+    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Unable to get billing source: ${ps}.}`)
+    process.exit();
+}
+
 
 for (const token of tokens) {
     const client = new Client({ //https://discord.js.org/#/docs/main/v11/typedef/ClientOptions
@@ -307,14 +331,20 @@ for (const token of tokens) {
                 console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(255,228,138) Sniped [${code}] - Already checked - Seen in ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
                 continue;
             }
-
+            var payload = `{"channel_id":${msg.channel.id},"payment_source_id":${paymentsourceid}}`
             phin({
                 url: `https://discord.com/api/v6/entitlements/gift-codes/${code}/redeem`,
                 method: 'POST',
                 parse: 'json',
                 headers: {
                     "Authorization": mainToken,
-                    "User-Agent": userAgent
+                    "User-Agent": userAgent,
+                    "Content-Type": "application/json",
+                    "Content-Length": payload.length
+                },
+                data: {
+                	"channel_id": msg.channel.id,
+                	"payment_source_id": paymentsourceid
                 }
             }, (err, res) => {
                 let end = `${new Date() - start}ms`;
@@ -322,16 +352,18 @@ for (const token of tokens) {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but got connection error: ${err}.}`);
                 } else if (res.body.message === '401: Unauthorized') {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the main token is not valid.}`);
-                } else if (res.body.message === "This gift has been redeemed already.") {
+                } else if (res.body.message === "This gift has been redeemed already." || res.body.message === "Missing Access") {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(255,228,138) Sniped [${code}] - Already redeemed - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
                 } else if ('subscription_plan' in res.body) {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(28,232,41) Sniped [${code}] - Success! - ${res.body.subscription_plan.name} - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
                     send_webhook_nitro(res.body.subscription_plan.name, (msg.guild ? msg.guild.name : "DMs"), msg.author.tag, client.user.tag, end, code, msg.url);
                 } else if (res.body.message === "Unknown Gift Code") {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {redBright Sniped [${code}] - Invalid - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
-                } else if (res.body.message === "You need to verify your e-mail in order to perform this action.")
+                } else if (res.body.message === "You need to verify your e-mail in order to perform this action.") {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the main token doesn't have a verified e-mail.}`);
-                else {
+                } else if (res.body.message === "New subscription required to redeem gift." || res.body.message === "Already purchased") {
+                    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the gift type cannot be used with an existing Nitro.}`);
+                } else {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but got error: ${res.body.message}.}`);
                 }
             });
