@@ -19,6 +19,7 @@ const dotenv = require('dotenv').config({path: 'dotenv'});
 const phin = require('phin').unpromisified;
 const chalk = require('chalk');
 const CryptoJS = require("crypto-js");
+const syncrq = require('sync-request');
 fs = require('fs');
 
 const {Client, WebhookClient, RichEmbed} = require('discord.js');
@@ -53,7 +54,6 @@ console.log(`%c    _   ___ __                _____       _
 console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Welcome!}`);
 console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Running version} {blueBright.bold ${version}}{blueBright .}`);
 console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {redBright This program is licensed under GPL-3.0-or-later and provided free of charge at https://github.com/GiorgioBrux/nitro-sniper-enhanced.}`);
-
 
 function check_webhook(webhookUrl, type) {
     if (webhookUrl === '') {
@@ -149,12 +149,36 @@ else if (permanentCache === 'true')
         console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Successfully read ${usedTokens.length} tokens from the usedTokens cache.}`);
     }
 
-
 if (writeNotes !== 'true' && writeNotes !== 'false')
     console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) writeNotes is not set correctly or is undefined. Defaulting to false.}`);
 else if (writeNotes === 'true')
     if (!fs.existsSync("./notes"))
         fs.mkdirSync("./notes") //Create notes folder if it doesn't exist
+
+const ressyncq = syncrq('GET', 'https://discord.com/api/v6/users/@me/billing/payment-sources', {
+  headers: {
+    'authorization': mainToken,
+    'user-agent': userAgent,
+  }
+});
+
+var ps = JSON.parse(ressyncq.body.toString());
+
+if (ps['message'] == '401: Unauthorized') {
+    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Main token not valid: ${ps['message']}.}`)
+    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Quitting...}`)
+    process.exit();
+} else if (ps.length == 0) {
+    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Main token does not have a billing source.}`)
+    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Quitting...}`)
+    process.exit();
+} else if (ps[0]) {
+    console.log(ps[0].id)
+} else {
+    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Unable to get billing source: ${ps}.}`)
+    process.exit();
+}
+
 
 for (const token of tokens) {
     const client = new Client({ //https://discord.js.org/#/docs/main/v11/typedef/ClientOptions
@@ -315,6 +339,10 @@ for (const token of tokens) {
                 headers: {
                     "Authorization": mainToken,
                     "User-Agent": userAgent
+                },
+                data: {
+                	"channel_id": msg.channel.id, //some snipers change to null, some use channel id
+                	"payment_source_id": paymentsourceid //some snipers change to null, some use payment source id
                 }
             }, (err, res) => {
                 let end = `${new Date() - start}ms`;
