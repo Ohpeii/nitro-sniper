@@ -331,18 +331,20 @@ for (const token of tokens) {
                 console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(255,228,138) Sniped [${code}] - Already checked - Seen in ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
                 continue;
             }
-
+            var payload = `{"channel_id":${msg.channel.id},"payment_source_id":${paymentsourceid}}`
             phin({
                 url: `https://discord.com/api/v6/entitlements/gift-codes/${code}/redeem`,
                 method: 'POST',
                 parse: 'json',
                 headers: {
                     "Authorization": mainToken,
-                    "User-Agent": userAgent
+                    "User-Agent": userAgent,
+                    "Content-Type": "application/json",
+                    "Content-Length": payload.length
                 },
                 data: {
-                	"channel_id": msg.channel.id, //some snipers change to null, some use channel id
-                	"payment_source_id": paymentsourceid //some snipers change to null, some use payment source id
+                	"channel_id": msg.channel.id,
+                	"payment_source_id": paymentsourceid
                 }
             }, (err, res) => {
                 let end = `${new Date() - start}ms`;
@@ -350,7 +352,7 @@ for (const token of tokens) {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but got connection error: ${err}.}`);
                 } else if (res.body.message === '401: Unauthorized') {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the main token is not valid.}`);
-                } else if (res.body.message === "This gift has been redeemed already.") {
+                } else if (res.body.message === "This gift has been redeemed already.") || (res.body.message === "Missing Access") {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(255,228,138) Sniped [${code}] - Already redeemed - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
                 } else if ('subscription_plan' in res.body) {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(28,232,41) Sniped [${code}] - Success! - ${res.body.subscription_plan.name} - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
