@@ -352,7 +352,7 @@ for (const token of tokens) {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but got connection error: ${err}.}`);
                 } else if (res.body.message === '401: Unauthorized') {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the main token is not valid.}`);
-                } else if (res.body.message === "This gift has been redeemed already.") || (res.body.message === "Missing Access") {
+                } else if (res.body.message === "This gift has been redeemed already." || res.body.message === "Missing Access") {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(255,228,138) Sniped [${code}] - Already redeemed - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
                 } else if ('subscription_plan' in res.body) {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(28,232,41) Sniped [${code}] - Success! - ${res.body.subscription_plan.name} - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
@@ -361,7 +361,7 @@ for (const token of tokens) {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {redBright Sniped [${code}] - Invalid - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
                 } else if (res.body.message === "You need to verify your e-mail in order to perform this action.") {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the main token doesn't have a verified e-mail.}`);
-                } else if (res.body.message === "New subscription required to redeem gift.") || (res.body.message === "Already purchased") {
+                } else if (res.body.message === "New subscription required to redeem gift." || res.body.message === "Already purchased") {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the gift type cannot be used with an existing Nitro.}`);
                 } else {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but got error: ${res.body.message}.}`);
