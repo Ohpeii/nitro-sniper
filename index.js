@@ -173,7 +173,7 @@ if (ps['message'] == '401: Unauthorized') {
     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Quitting...}`)
     process.exit();
 } else if (ps[0]) {
-    console.log(ps[0].id)
+    var paymentsourceid = ps[0].id
 } else {
     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Unable to get billing source: ${ps}.}`)
     process.exit();
