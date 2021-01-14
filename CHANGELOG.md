@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.5.1...v1.5.2) (2021-01-14)
+
+
+### Bug Fixes
+
+* close [#35](https://github.com/giorgiobrux/nitro-sniper-enhanced/issues/35) - allow sniping without payment source ([0a378c3](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/0a378c34a084ab4c0ee1975f892db8a64e1ecf6a))
+
 ## [1.5.1](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.5.0...v1.5.1) (2021-01-13)
 
 
