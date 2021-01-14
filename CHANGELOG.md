@@ -1,3 +1,10 @@
+## [1.5.3](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.5.2...v1.5.3) (2021-01-14)
+
+
+### Bug Fixes
+
+* wrong var definition ([5b0fe54](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/5b0fe54deec5ce5d07e9e5ebe0b20f84d2c7e374))
+
 ## [1.5.2](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.5.1...v1.5.2) (2021-01-14)
 
 
