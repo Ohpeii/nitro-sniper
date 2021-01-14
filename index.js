@@ -164,14 +164,13 @@ const ressyncq = syncrq('GET', 'https://discord.com/api/v6/users/@me/billing/pay
 
 var ps = JSON.parse(ressyncq.body.toString());
 
-if (ps['message'] == '401: Unauthorized') {
+if (ps['message'] === '401: Unauthorized') {
     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Main token not valid: ${ps['message']}.}`)
     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Quitting...}`)
     process.exit();
-} else if (ps.length == 0) {
-    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Main token does not have a billing source.}`)
-    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Quitting...}`)
-    process.exit();
+} else if (ps.length === 0) {
+    console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) Main token does not have a billing source, some codes will not be sniped.}`);
+    var paymentsourceid = null;
 } else if (ps[0]) {
     var paymentsourceid = ps[0].id
 } else {
@@ -363,7 +362,10 @@ for (const token of tokens) {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the main token doesn't have a verified e-mail.}`);
                 } else if (res.body.message === "New subscription required to redeem gift." || res.body.message === "Already purchased") {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the gift type cannot be used with an existing Nitro.}`);
-                } else {
+                } else if (res.body.message === "Payment source required to redeem gift.") {
+                    console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(28,232,41) Sniped [${code}] - You don't have a valid payment method.}`);
+                }
+                else {
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but got error: ${res.body.message}.}`);
                 }
             });
