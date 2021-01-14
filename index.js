@@ -170,7 +170,7 @@ if (ps['message'] === '401: Unauthorized') {
     process.exit();
 } else if (ps.length === 0) {
     console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) Main token does not have a billing source, some codes will not be sniped.}`);
-    var paymentsourceid = null;
+    var paymentsourceid = 'null';
 } else if (ps[0]) {
     var paymentsourceid = ps[0].id
 } else {
