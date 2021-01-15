@@ -1,3 +1,10 @@
+## [1.5.6](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.5.5...v1.5.6) (2021-01-15)
+
+
+### Bug Fixes
+
+* close [#36](https://github.com/giorgiobrux/nitro-sniper-enhanced/issues/36) - solve error 400 ([6e593c6](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/6e593c6162c0c81e0a8ba29b393fa4e2c2cfd69a))
+
 ## [1.5.5](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.5.4...v1.5.5) (2021-01-15)
 
 
