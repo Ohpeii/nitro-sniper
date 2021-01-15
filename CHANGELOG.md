@@ -1,3 +1,10 @@
+## [1.5.4](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.5.3...v1.5.4) (2021-01-15)
+
+
+### Bug Fixes
+
+* fix half-working legitimacyCheck ([dafbbe6](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/dafbbe67f39b9964437ccc8a1cbfa787b46d53c2))
+
 ## [1.5.3](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.5.2...v1.5.3) (2021-01-14)
 
 
