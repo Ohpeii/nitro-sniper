@@ -1,3 +1,10 @@
+## [1.5.5](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.5.4...v1.5.5) (2021-01-15)
+
+
+### Bug Fixes
+
+* fix wrong error threshold ([55f5011](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/55f5011242d204f73e3858a8aca669afc4593a0c))
+
 ## [1.5.4](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.5.3...v1.5.4) (2021-01-15)
 
 
