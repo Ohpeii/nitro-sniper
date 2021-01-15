@@ -342,10 +342,7 @@ for (const token of tokens) {
                     "Content-Type": "application/json",
                     "Content-Length": payload.length
                 },
-                data: {
-                	"channel_id": msg.channel.id,
-                	"payment_source_id": paymentsourceid
-                }
+                data: `{"channel_id":${msg.channel.id},"payment_source_id":${paymentsourceid}}`
             }, (err, res) => {
                 let end = `${new Date() - start}ms`;
                 if (err) {
