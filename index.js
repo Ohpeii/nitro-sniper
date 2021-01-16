@@ -319,9 +319,8 @@ for (const token of tokens) {
                 const numeric = code.replace(/[^0-9]/g, "").length;
                 const lowercase = code.replace(/[^a-z]+/g, "").length;
                 const uppercase = code.replace(/[^A-Z]+/g, "").length;
-                const error = numeric - lowercase - uppercase;
 
-                if (code.length > 26 || code.length < 16 || error > 14 || error < -14) { //Error over 8 is statistically very unlikely for a true code.
+                if (code.length > 26 || code.length < 16 || lowercase === 0 || uppercase === 0 || (lowercase < 4 && uppercase < 4)) { //Very basic but no false positives. Will try to improve it in the future
                     console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped [${code}] - Fake Code - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
                     continue;
                 }
