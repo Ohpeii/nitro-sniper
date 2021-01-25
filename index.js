@@ -188,7 +188,7 @@ if (ps['message'] === '401: Unauthorized') {
 
 for (const token of tokens) {
     const client = new Client({ //https://discord.js.org/#/docs/main/v11/typedef/ClientOptions
-        cacheGuilds: false,
+        cacheGuilds: true,
         cacheChannels: false,
         cacheOverwrites: false,
         cacheRoles: false,
@@ -388,7 +388,7 @@ for (const token of tokens) {
 
     client.on('ready', () => {
         if (token === mainToken) console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blue Main token valid: ${client.user.tag} - Sniping in ${client.guilds.cache.size} servers.}`);
-        else console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {cyan Slave logged in as ${client.user.tag} - Sniping in ${client.guilds.size} servers.}`);
+        else console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {cyan Slave logged in as ${client.user.tag} - Sniping in ${client.guilds.cache.size} servers.}`);
         if (token !== mainToken) client.user.setStatus(tokenStatus)
             .catch(function (err) {
                 console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Couldn't set status of "${token.substring(0, 10)}...": ${err}.}`);
