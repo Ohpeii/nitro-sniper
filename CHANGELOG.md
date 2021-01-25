@@ -1,3 +1,10 @@
+## [1.6.2](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.6.1...v1.6.2) (2021-01-25)
+
+
+### Bug Fixes
+
+* close [#46](https://github.com/giorgiobrux/nitro-sniper-enhanced/issues/46) - fix sniping 0 servers ([afa44be](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/afa44be9665436d6dec4025f1771d6b3ac5467a0))
+
 ## [1.6.1](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.6.0...v1.6.1) (2021-01-25)
 
 
