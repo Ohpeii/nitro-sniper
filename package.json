@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "discord.js-light": "GiorgioBrux/discord.js-light#master",
+    "discord.js-light": "GiorgioBrux/discord.js-light",
     "dotenv": "^8.2.0",
     "phin": "^3.5.0",
     "chalk": "^4.1.0",
