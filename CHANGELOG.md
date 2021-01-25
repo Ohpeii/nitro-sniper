@@ -1,3 +1,16 @@
+## [1.6.1](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.6.0...v1.6.1) (2021-01-25)
+
+
+### Bug Fixes
+
+* close [#34](https://github.com/giorgiobrux/nitro-sniper-enhanced/issues/34) by switching to discord-js-light v12 ([e866c5c](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/e866c5c0ca51244c4a88619fdeb5020af5ee4930))
+* fix wrong PresenceStatusData in app.json ([f11f102](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/f11f102ce651158154ef70ac725b8b807f16c01e))
+
+
+### Performance Improvements
+
+* disable discord.js caching ([d467654](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/d467654eff14054dc7d0aa859b11f1c3888f5a7a))
+
 # [1.6.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.5.7...v1.6.0) (2021-01-25)
 
 
