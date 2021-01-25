@@ -1,3 +1,11 @@
+## [1.6.3](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.6.2...v1.6.3) (2021-01-25)
+
+
+### Bug Fixes
+
+* fix broken install ([f36b445](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/f36b445eabd3959352f6ced8c116b115cb9e4f18))
+* fix broken installation pt2 ([330b0a1](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/330b0a1a7fbae69a19b8865d95594913fa8fc848))
+
 ## [1.6.2](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.6.1...v1.6.2) (2021-01-25)
 
 
