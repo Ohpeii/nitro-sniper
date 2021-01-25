@@ -188,6 +188,12 @@ if (ps['message'] === '401: Unauthorized') {
 
 for (const token of tokens) {
     const client = new Client({ //https://discord.js.org/#/docs/main/v11/typedef/ClientOptions
+        cacheGuilds: false,
+        cacheChannels: false,
+        cacheOverwrites: false,
+        cacheRoles: false,
+        cacheEmojis: false,
+        cachePresences: false,
         messageCacheLifetime: 1,
         messageCacheMaxSize: 2,
         messageSweepInterval: 5,
