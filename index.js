@@ -22,7 +22,7 @@ const CryptoJS = require("crypto-js");
 const syncrq = require('sync-request');
 fs = require('fs');
 
-const {Client, WebhookClient, RichEmbed} = require('discord.js');
+const {Client, WebhookClient, MessageEmbed} = require('discord.js-light');
 
 const useMain = process.env.useMain;
 const tokens = process.env.guildTokens.split(',').filter(item => item);
@@ -85,7 +85,7 @@ notes_webhookclient = check_webhook(notes_webhookUrl, 'notes');
 
 function send_webhook_nitro(res_type, guild, giver, tokenname, timetaken, code, msgurl) {
     if (nitro_webhookclient === null) return;
-    const embed = new RichEmbed()
+    const embed = new MessageEmbed()
         .setTitle(`Sniped gift successfully!`)
         .setColor('#1ce829')
         .addField('Where', `${guild}`, true)
@@ -106,8 +106,8 @@ function send_webhook_nitro(res_type, guild, giver, tokenname, timetaken, code, 
 
 function send_webhook_notes(noteweb, guild, giver, tokenname, content, msgurl) {
     if (notes_webhookUrl === null) return;
-    const embed = new RichEmbed()
-        .setTitle('Sniped note successfully!')
+    const embed = new MessageEmbed()
+        .setTitle(`Sniped note successfully!`)
         .setColor('#1ce5e8')
         .addField('Where', `${guild}`, true)
         .addField('Account used', `${tokenname}`, true)
@@ -381,9 +381,8 @@ for (const token of tokens) {
 
 
     client.on('ready', () => {
-        if (token === mainToken) console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blue Main token valid: ${client.user.tag} - Sniping in ${client.guilds.size} servers.}`);
+        if (token === mainToken) console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blue Main token valid: ${client.user.tag} - Sniping in ${client.guilds.cache.size} servers.}`);
         else console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {cyan Slave logged in as ${client.user.tag} - Sniping in ${client.guilds.size} servers.}`);
-
         if (token !== mainToken) client.user.setStatus(tokenStatus)
             .catch(function (err) {
                 console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Couldn't set status of "${token.substring(0, 10)}...": ${err}.}`);
