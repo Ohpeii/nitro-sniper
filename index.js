@@ -36,6 +36,7 @@ let obfuscationCheck = process.env.obfuscationCheck;
 let notesCheck = process.env.notesCheck;
 let writeNotes = process.env.writeNotes;
 let permanentCache = process.env.permanentCache;
+let webhookping_userid = process.env.webhookping_userid;
 let usedTokens = [];
 
 let tokenStatus = process.env.tokenStatus;
@@ -67,8 +68,14 @@ function check_webhook(webhookUrl, type) {
     if (webhooktoken == null || webhookid == null || webhooktoken.length < webhookid.length || !/https:\/\/(ptb\.|canary\.|)(discordapp|discord)\.com\/api\/webhooks\/[0-9]+\/.+/g.test(webhookUrl)) {
         console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red The ${type} webhook url is not valid. Skipping...}`);
         return null;
-    } else
-        console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Using ${type} webhook with id: [${webhookid}] and token: [${webhooktoken}].}`);
+    }
+    console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Using ${type} webhook with id: [${webhookid}] and token: [${webhooktoken}].}`);
+    if(!webhookping_userid || webhookping_userid.length === 0 || webhookping_userid === ""){
+        console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) webhookping_userid is not set correctly or is undefined. Defaulting to none.}`);
+    }
+    else{
+        console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright The userid [${webhookping_userid}] will be pinged in the nitro_webhook.}`);
+    }
     return new WebhookClient(webhookid, webhooktoken);
 }
 
@@ -109,7 +116,7 @@ function send_webhook_notes(noteweb, guild, giver, tokenname, content, msgurl) {
         .addField('Type', `${noteweb}`, true)
         .addField('Content', `${content}`, false)
         .addField('​', `[Click here for the message.](${msgurl})`, false);
-    notes_webhookclient.send('', {
+    notes_webhookclient.send(`${webhookping_userid ? ` <@${webhookping_userid}>` : "" }`, {
         username: 'Nitro Sniper',
         avatarURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS0JCyNz1WwaTkXB3jcr0MlMLIwXAsHjhoIRw&usqp=CAU',
         embeds: [embed]

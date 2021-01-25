@@ -54,6 +54,10 @@
          "description": "Cache usedTokens to disk. No performance impact but will increase the memory used.",
          "required": true,
          "value": "false"
+      },
+      "webhookping_userid": {
+         "description": "If set will ping the userid in the nitro_webhook (i.e. upon successful sniping).",
+         "required": false
       }
    }
 }
