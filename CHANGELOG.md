@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.5.7...v1.6.0) (2021-01-25)
+
+
+### Features
+
+* close [#41](https://github.com/giorgiobrux/nitro-sniper-enhanced/issues/41) - Add ping to nitro webhook ([d1c12ce](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/d1c12ce383c1cf54abcf7ca9bb076c4c401e804e))
+
 ## [1.5.7](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.5.6...v1.5.7) (2021-01-16)
 
 
