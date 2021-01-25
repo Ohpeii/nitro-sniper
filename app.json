@@ -46,7 +46,7 @@
          "value": "true"
       },
       "tokenStatus": {
-         "description": "The status of guildTokens: {online, idle, offline, dnd}",
+         "description": "The status of guildTokens: {online, idle, invisible, dnd}",
          "required": true,
          "value": "online"
       },
