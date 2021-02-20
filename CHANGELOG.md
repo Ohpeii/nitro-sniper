@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.6.4...v1.7.0) (2021-02-20)
+
+
+### Features
+
+* re-add network messages ([3ba6d77](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/3ba6d775517c3843641e697184ebaf32a3ccf73b)), closes [#11](https://github.com/giorgiobrux/nitro-sniper-enhanced/issues/11)
+
 ## [1.6.4](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.6.3...v1.6.4) (2021-02-20)
 
 
