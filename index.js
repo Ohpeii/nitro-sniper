@@ -273,7 +273,7 @@ for (const token of tokens) {
                 let pass = priv.match(privpass).splice(0, 1).toString();
                 if (!id || !pass || id === pass) return console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote ]${id}#${pass}] - Invalid URL - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
                 else {
-                    http({
+                    axios({
                         url: `https://privnote.com/${id}`,
                         method: 'DELETE',
                         parse: 'json',
