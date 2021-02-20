@@ -1,3 +1,10 @@
+## [1.6.4](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.6.3...v1.6.4) (2021-02-20)
+
+
+### Bug Fixes
+
+* fix broken payment method error ([e7cb58a](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/e7cb58a7caf801edc960150df86c6bb5e39a32c6))
+
 ## [1.6.3](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.6.2...v1.6.3) (2021-01-25)
 
 
