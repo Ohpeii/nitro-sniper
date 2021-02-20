@@ -84,7 +84,7 @@ notes_webhookclient = check_webhook(notes_webhookUrl, 'notes');
 
 
 function send_webhook_nitro(res_type, guild, giver, tokenname, timetaken, code, msgurl) {
-    if (nitro_webhookclient === null) return;
+    if (!nitro_webhookclient) return;
     const embed = new MessageEmbed()
         .setTitle(`Sniped gift successfully!`)
         .setColor('#1ce829')
@@ -105,7 +105,7 @@ function send_webhook_nitro(res_type, guild, giver, tokenname, timetaken, code, 
 }
 
 function send_webhook_notes(noteweb, guild, giver, tokenname, content, msgurl) {
-    if (notes_webhookUrl === null) return;
+    if (!notes_webhookUrl) return;
     const embed = new MessageEmbed()
         .setTitle(`Sniped note successfully!`)
         .setColor('#1ce5e8')
