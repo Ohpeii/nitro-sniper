@@ -370,27 +370,23 @@ for (const token of tokens) {
                         console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but got error: ${res.data.message}.}`);
                     }
                 })
-                .catch((err) =>  {
+                .catch((err) => {
                     if (err.response) {
-                        if(err.response.status === 401){
+                        if (err.response.status === 401) {
                             console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the main token is not valid.}`);
-                        }
-                        else if (err.response.data.message === "This gift has been redeemed already." || err.response.data.message === "Missing Access") {
+                        } else if (err.response.data.message === "This gift has been redeemed already." || err.response.data.message === "Missing Access") {
                             console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(255,228,138) Sniped [${code}] - Already redeemed - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
-                        }
-                        else if (err.response.data.message === "You need to verify your e-mail in order to perform this action.") {
+                        } else if (err.response.data.message === "You need to verify your e-mail in order to perform this action.") {
                             console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the main token doesn't have a verified e-mail.}`);
-                        }
-                        else if (err.response.data.message === "Unknown Gift Code") {
+                        } else if (err.response.data.message === "Unknown Gift Code") {
                             console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {redBright Sniped [${code}] - Invalid - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
                         } else if (err.response.data.message === "New subscription required to redeem gift." || err.response.data.message === "Already purchased") {
                             console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the gift type cannot be used with an existing Nitro.}`);
                         } else if (err.response.data.message === "Payment source required to redeem gift.") {
                             console.log(chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(28,232,41) Sniped [${code}] - You don't have a valid payment method.}`);
                         }
-                    }
-                    else
-                    console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but got connection error: ${err}}`);
+                    } else
+                        console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but got connection error: ${err}}`);
                 })
             usedTokens.push(code);
             if (permanentCache === 'true')
