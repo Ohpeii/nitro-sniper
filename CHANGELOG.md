@@ -1,3 +1,15 @@
+# [1.8.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.7.0...v1.8.0) (2021-02-20)
+
+
+### Bug Fixes
+
+* fix error when no webhook is specified ([d344757](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/d344757d42950618584330f8e698ee591368368d))
+
+
+### Features
+
+* implement rate limit ([1b8e90a](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/1b8e90a5b52e9ff6cfa860797e92584f68f274e3)), closes [#5](https://github.com/giorgiobrux/nitro-sniper-enhanced/issues/5)
+
 # [1.7.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.6.4...v1.7.0) (2021-02-20)
 
 
