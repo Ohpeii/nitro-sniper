@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.8.0...v1.8.1) (2021-02-20)
+
+
+### Bug Fixes
+
+* fix semantic-release ([470e816](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/470e8166e2c43d1f5a61ec93864b05da8a74dda7))
+
 # [1.8.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.7.0...v1.8.0) (2021-02-20)
 
 
