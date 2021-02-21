@@ -1,3 +1,10 @@
+## [1.8.7](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.8.6...v1.8.7) (2021-02-21)
+
+
+### Bug Fixes
+
+* revert back to v6 ([fe4b33b](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/fe4b33bf90029bef1eefe766463b94e113110344))
+
 ## [1.8.6](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.8.5...v1.8.6) (2021-02-21)
 
 
