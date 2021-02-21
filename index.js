@@ -166,9 +166,9 @@ else if (writeNotes === 'true')
         fs.mkdirSync("./notes") //Create notes folder if it doesn't exist
 
 if(replit !== 'true' && replit !== 'false')
-    console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) repl is not set correctly or is undefined. Defaulting to false.}`);
+    console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) replit is not set correctly or is undefined. Defaulting to false.}`);
 else if(replit === 'true'){
-    console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Running in repl mode.}`);
+    console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Running in replit mode.}`);
     let http = require('http');
 
     http.createServer(function (req, res) {
