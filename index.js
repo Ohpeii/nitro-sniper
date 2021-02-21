@@ -25,7 +25,7 @@ const CryptoJS = require("crypto-js");
 const syncrq = require('sync-request');
 fs = require('fs');
 
-const {Client, WebhookClient, MessageEmbed} = require('discord.js-light');
+const {Client, WebhookClient, MessageEmbed, Intents} = require('discord.js-light');
 
 const useMain = process.env.useMain;
 const tokens = process.env.guildTokens.split(',').filter(item => item);
@@ -385,6 +385,7 @@ for (const token of tokens) {
                     }
                 })
                 .catch((err) => {
+                    let end = `${new Date() - start}ms`;
                     if (err.response) {
                         if (err.response.status === 401) {
                             console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the main token is not valid.}`);
