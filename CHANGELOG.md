@@ -1,3 +1,10 @@
+## [1.8.6](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.8.5...v1.8.6) (2021-02-21)
+
+
+### Bug Fixes
+
+* fix invalid bitfield? ([2bd5788](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/2bd5788044be6d0f8acc102cda31b026f4f7e00d))
+
 ## [1.8.5](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.8.4...v1.8.5) (2021-02-21)
 
 
