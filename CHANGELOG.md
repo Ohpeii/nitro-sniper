@@ -1,3 +1,11 @@
+## [1.8.5](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.8.4...v1.8.5) (2021-02-21)
+
+
+### Bug Fixes
+
+* fix double webhook_userid warning ([66211ed](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/66211edd1f1bdfaad0073ba2bfc8711d3ddcce9e))
+* ping only in the nitro webhook ([90edc99](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/90edc99a9569347b96e57a09d68fae3f5ea189f7))
+
 ## [1.8.4](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.8.3...v1.8.4) (2021-02-21)
 
 
