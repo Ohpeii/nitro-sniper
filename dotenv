@@ -1,12 +1,36 @@
+# Your main account's token, used for redeeming the gift.
 guildTokens=""
+
+# Your alt accounts tokens. Required if useMain is set to false. (Split multiple tokens with \",\")
 mainToken=""
+
+# Do you want to use your main token for sniping? true/false
 useMain=""
+
+# Put here your webhook url if you wish to receive messages when a gift is redeemed.
 nitro_webhookUrl=""
+
+# Put here your webhook url if you wish to receive messages when notes are sniped.
 notes_webhookUrl=""
+
+# Does some magic to check if the code could be legitimate but will slow the sniper down. true/false
 legitimacyCheck=""
+
+# Does some magic to remove obfuscation from codes but will slow the sniper down. true/false
 obfuscationCheck=""
+
+# Does some magic to check for privnotes link. Little performance impact.
+# IMPORTANT: This will snipe all privnote links (except your own) and destroy them! true/false
 notesCheck=""
+
+# Whether you want all sniped notes to be written in the ./notes folder. Doesn't slow the sniper down.
 writeNotes=""
+
+# The status of guildTokens: {online, idle, invisible, dnd}
 tokenStatus=""
+
+# Cache usedTokens to disk. No performance impact but will increase the memory used.
 permanentCache=""
+
+# If set will ping the userid in the nitro_webhook (i.e. upon successful sniping).
 webhookping_userid=""
