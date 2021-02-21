@@ -76,6 +76,7 @@ function check_webhook(webhookUrl, type) {
     console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Using ${type} webhook with id: [${webhookid}] and token: [${webhooktoken}].}`);
     return new WebhookClient(webhookid, webhooktoken);
 }
+
 if (!webhookping_userid || webhookping_userid.length === 0 || webhookping_userid === "") {
     console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) webhookping_userid is not set correctly or is undefined. Defaulting to none.}`);
 } else {
@@ -164,9 +165,9 @@ else if (writeNotes === 'true')
     if (!fs.existsSync("./notes"))
         fs.mkdirSync("./notes") //Create notes folder if it doesn't exist
 
-if(replit !== 'true' && replit !== 'false')
+if (replit !== 'true' && replit !== 'false')
     console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) replit is not set correctly or is undefined. Defaulting to false.}`);
-else if(replit === 'true'){
+else if (replit === 'true') {
     console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Running in replit mode.}`);
     let http = require('http');
 
@@ -175,7 +176,6 @@ else if(replit === 'true'){
         res.end();
     }).listen(8080);
 }
-
 
 
 const ressyncq = syncrq('GET', 'https://discord.com/api/v6/users/@me/billing/payment-sources', {
