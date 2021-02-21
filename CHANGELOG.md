@@ -1,3 +1,10 @@
+## [1.8.3](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.8.2...v1.8.3) (2021-02-21)
+
+
+### Bug Fixes
+
+* **replit:** fix wrong variable name ([1b65a1a](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/1b65a1a72d9fec3b197f47b9f035708c1d64bc57))
+
 ## [1.8.2](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.8.1...v1.8.2) (2021-02-21)
 
 
