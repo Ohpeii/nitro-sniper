@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.8.8...v1.9.0) (2021-02-21)
+
+
+### Features
+
+* automatic get latest useragent ([cb01c58](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/cb01c58ba922c951b6e17ed5733bf467d48af54e))
+
 ## [1.8.8](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.8.7...v1.8.8) (2021-02-21)
 
 
