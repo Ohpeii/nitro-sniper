@@ -29,6 +29,7 @@ To update see [here](https://github.com/GiorgioBrux/nitro-sniper-enhanced/issues
 #### Repl.it
 Go to your dashboard, click on the plus button, import from github and type `giorgiobrux/nitro-sniper-enhanced`. <br>
 Edit the dotenv file, making sure to set `replit` to `true`. <br>
+To update, run `git pull` <br>
 **IMPORTANT**: You need to use a service that periodically pings your repl.it app like [UptimeRobot](https://uptimerobot.com/), or else it will go in sleep mode. <br>
 #### Local
 - Make sure [Node](https://nodejs.org/en/) 14+ is installed on your system and open a command prompt/terminal.
@@ -37,8 +38,10 @@ Edit the dotenv file, making sure to set `replit` to `true`. <br>
 - Run `npm install`
 - Edit the dotenv file.
 - Run `node .`
+To update, run `git pull`  
 #### Docker
 [Available on DockerHub](https://hub.docker.com/r/giorgiobrux/nitro-sniper)
+To update, use [watchtower](https://github.com/containrrr/watchtower) or similar. 
 
 # Contributing
 Pull requests are welcome.  
