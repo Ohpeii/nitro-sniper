@@ -1,3 +1,10 @@
+## [1.8.2](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.8.1...v1.8.2) (2021-02-21)
+
+
+### Bug Fixes
+
+* hopefully fix axios heroku problem ([b9e51bc](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/b9e51bca2c6f181975a2c88906edbaebc86bb546))
+
 ## [1.8.1](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.8.0...v1.8.1) (2021-02-20)
 
 
