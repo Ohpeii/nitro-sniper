@@ -74,14 +74,13 @@ function check_webhook(webhookUrl, type) {
         return null;
     }
     console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Using ${type} webhook with id: [${webhookid}] and token: [${webhooktoken}].}`);
-    if (!webhookping_userid || webhookping_userid.length === 0 || webhookping_userid === "") {
-        console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) webhookping_userid is not set correctly or is undefined. Defaulting to none.}`);
-    } else {
-        console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright The userid [${webhookping_userid}] will be pinged in the nitro_webhook.}`);
-    }
     return new WebhookClient(webhookid, webhooktoken);
 }
-
+if (!webhookping_userid || webhookping_userid.length === 0 || webhookping_userid === "") {
+    console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) webhookping_userid is not set correctly or is undefined. Defaulting to none.}`);
+} else {
+    console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright The userid [${webhookping_userid}] will be pinged in the nitro_webhook.}`);
+}
 nitro_webhookclient = check_webhook(nitro_webhookUrl, 'nitro');
 notes_webhookclient = check_webhook(notes_webhookUrl, 'notes');
 
