@@ -9,7 +9,7 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>. */
 
 const {version} = require('./package.json');
-const userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36";
+let userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36";
 const regex = new RegExp(/(discord\.gift\/|discord\.com\/gifts\/|discordapp\.com\/gifts\/)[^\s]+/gmi);
 const privnote = new RegExp(/(?<=privnote.com\/)[^\s]+/);
 const privid = new RegExp(/[^#]*/);
@@ -59,6 +59,19 @@ console.log(`%c    _   ___ __                _____       _
 console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Welcome!}`);
 console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Running version} {blueBright.bold ${version}}{blueBright .}`);
 console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {redBright This program is licensed under GPL-3.0-or-later and provided free of charge at https://github.com/GiorgioBrux/nitro-sniper-enhanced.}`);
+
+axios({
+    url: 'https://www.whatismybrowser.com/guides/the-latest-user-agent/chrome',
+    method: 'GET',
+})
+    .then((res) => {
+        console.log(res.data);
+        userAgent = res.data.match(/Mozilla\/5\.0 \(Windows NT 10\.0; Win64; x64\)[^<]*/g).toString();
+    })
+    .catch((err) => {
+        console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red There was an error fetching the latest chrome user agent: ${err}. Using default...}`);
+    })
+
 
 function check_webhook(webhookUrl, type) {
     if (webhookUrl === '') {
