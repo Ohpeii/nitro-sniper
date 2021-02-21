@@ -165,7 +165,7 @@ else if (writeNotes === 'true')
     if (!fs.existsSync("./notes"))
         fs.mkdirSync("./notes") //Create notes folder if it doesn't exist
 
-if(replit !== 'true' && repl === 'false')
+if(replit !== 'true' && replit === 'false')
     console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) repl is not set correctly or is undefined. Defaulting to false.}`);
 else if(replit === 'true'){
     console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Running in repl mode.}`);
