@@ -1,3 +1,10 @@
+## [1.8.4](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.8.3...v1.8.4) (2021-02-21)
+
+
+### Bug Fixes
+
+* **replit:** fix wrong comparison ([b9c8234](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/b9c823461c0b65d6c0d8b3a712962c75da244939))
+
 ## [1.8.3](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.8.2...v1.8.3) (2021-02-21)
 
 
