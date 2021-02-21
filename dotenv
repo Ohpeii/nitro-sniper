@@ -34,3 +34,6 @@ permanentCache=""
 
 # If set will ping the userid in the nitro_webhook (i.e. upon successful sniping).
 webhookping_userid=""
+
+# Set to true only if you are running the sniper on repl.it
+replit=""

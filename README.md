@@ -26,6 +26,10 @@ Click on the image below and login to continue the setup.<br>
 Make sure you go to your app -> Configure dynos/Resources and turn off `web` and start `worker`.<br>
 You can then see logs by clicking on `More` (top right) and then `View logs`.<br>
 To update see [here](https://github.com/GiorgioBrux/nitro-sniper-enhanced/issues/7#issuecomment-692116471).
+#### Repl.it
+Go to your dashboard, click on the plus button, import from github and type `giorgiobrux/nitro-sniper-enhanced`. <br>
+Edit the dotenv file, making sure to set `replit` to `true`. <br>
+**IMPORTANT**: You need to use a service that periodically pings your repl.it app like [UptimeRobot](https://uptimerobot.com/), or else it will go in sleep mode. <br>
 #### Local
 - Make sure [Node](https://nodejs.org/en/) 14+ is installed on your system and open a command prompt/terminal.
 - Run `git clone https://github.com/giorgiobrux/nitro-sniper-enhanced nitro-sniper`

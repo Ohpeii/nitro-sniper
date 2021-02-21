@@ -40,6 +40,7 @@ let notesCheck = process.env.notesCheck;
 let writeNotes = process.env.writeNotes;
 let permanentCache = process.env.permanentCache;
 let webhookping_userid = process.env.webhookping_userid;
+let replit = process.env.replit;
 let usedTokens = [];
 
 let tokenStatus = process.env.tokenStatus;
@@ -163,6 +164,20 @@ if (writeNotes !== 'true' && writeNotes !== 'false')
 else if (writeNotes === 'true')
     if (!fs.existsSync("./notes"))
         fs.mkdirSync("./notes") //Create notes folder if it doesn't exist
+
+if(replit !== 'true' && repl === 'false')
+    console.log(chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) repl is not set correctly or is undefined. Defaulting to false.}`);
+else if(replit === 'true'){
+    console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Running in repl mode.}`);
+    let http = require('http');
+
+    http.createServer(function (req, res) {
+        res.write("I'm alive!");
+        res.end();
+    }).listen(8080);
+}
+
+
 
 const ressyncq = syncrq('GET', 'https://discord.com/api/v6/users/@me/billing/payment-sources', {
     headers: {
