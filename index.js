@@ -97,7 +97,7 @@ function send_webhook_nitro(res_type, guild, giver, tokenname, timetaken, code, 
         .addField('Type of sub', `${res_type}`, true)
         .addField('Giftcode', `${code}`, true)
         .addField('​', `[Click here for the message.](${msgurl})`, false);
-    nitro_webhookclient.send('', {
+    nitro_webhookclient.send(`${webhookping_userid ? `<@${webhookping_userid}>` : ""}`, {
         username: 'Nitro Sniper',
         avatarURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS0JCyNz1WwaTkXB3jcr0MlMLIwXAsHjhoIRw&usqp=CAU',
         embeds: [embed]
@@ -118,7 +118,7 @@ function send_webhook_notes(noteweb, guild, giver, tokenname, content, msgurl) {
         .addField('Type', `${noteweb}`, true)
         .addField('Content', `${content}`, false)
         .addField('​', `[Click here for the message.](${msgurl})`, false);
-    notes_webhookclient.send(`${webhookping_userid ? ` <@${webhookping_userid}>` : ""}`, {
+    notes_webhookclient.send(``, {
         username: 'Nitro Sniper',
         avatarURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS0JCyNz1WwaTkXB3jcr0MlMLIwXAsHjhoIRw&usqp=CAU',
         embeds: [embed]
