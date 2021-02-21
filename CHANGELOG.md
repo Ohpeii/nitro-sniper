@@ -1,3 +1,10 @@
+## [1.8.8](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.8.7...v1.8.8) (2021-02-21)
+
+
+### Bug Fixes
+
+* fix end is not defined ([1e10db7](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/1e10db7eef81406db782c539d591fedeaebe24f6))
+
 ## [1.8.7](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.8.6...v1.8.7) (2021-02-21)
 
 
