@@ -1,7 +1,7 @@
-# Your main account's token, used for redeeming the gift.
+# Your alt accounts tokens. Required if useMain is set to false. (Split multiple tokens with \",\")
 guildTokens=""
 
-# Your alt accounts tokens. Required if useMain is set to false. (Split multiple tokens with \",\")
+# Your main account's token, used for redeeming the gift.
 mainToken=""
 
 # Do you want to use your main token for sniping? true/false
