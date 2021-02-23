@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.9.0...v1.9.1) (2021-02-23)
+
+
+### Bug Fixes
+
+* fix wrong console.log ([60e9252](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/60e92526a7292265cd3e46ff796dcc6813c8fbc8))
+
 # [1.9.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.8.8...v1.9.0) (2021-02-21)
 
 
