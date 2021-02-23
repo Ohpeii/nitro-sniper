@@ -65,8 +65,8 @@ axios({
     method: 'GET',
 })
     .then((res) => {
-        console.log(res.data);
         userAgent = res.data.match(/Mozilla\/5\.0 \(Windows NT 10\.0; Win64; x64\)[^<]*/g).toString();
+        console.log(chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Setting latest chrome user agent: ${userAgent}`);
     })
     .catch((err) => {
         console.log(chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red There was an error fetching the latest chrome user agent: ${err}. Using default...}`);
