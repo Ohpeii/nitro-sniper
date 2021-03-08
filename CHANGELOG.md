@@ -1,3 +1,10 @@
+## [1.9.2](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.9.1...v1.9.2) (2021-03-08)
+
+
+### Bug Fixes
+
+* fix broken chalk ([e6480af](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/e6480aff49dac2ff6d1a22721660338b81330bc1))
+
 ## [1.9.1](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.9.0...v1.9.1) (2021-02-23)
 
 
