@@ -1,3 +1,10 @@
+## [1.9.3](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.9.2...v1.9.3) (2021-03-16)
+
+
+### Bug Fixes
+
+* fix spam of connection messages ([257edd6](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/257edd6f87a20810da91842971f782c2242504d3)), closes [#57](https://github.com/giorgiobrux/nitro-sniper-enhanced/issues/57)
+
 ## [1.9.2](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.9.1...v1.9.2) (2021-03-08)
 
 
