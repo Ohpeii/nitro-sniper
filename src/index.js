@@ -12,6 +12,7 @@ global.regex = new RegExp(
   /(discord\.gift\/|discord\.com\/gifts\/|discordapp\.com\/gifts\/)[^\s]+/gim
 );
 const privnote = new RegExp(/(?<=privnote.com\/)[^\s]+/);
+const temp_pm = new RegExp(/(?<=temp.pm\/\?)[^\s]+/);
 
 require("dotenv").config({ path: "dotenv" });
 const axios = require("axios").default;
@@ -326,7 +327,15 @@ for (const token of tokens) {
             return notes.privnote.getData(
               msg,
               writeNotes,
-              privnote,
+              msg.content.match(privnote).splice(0, 1).toString(),
+              notes_webhookclient,
+              client.user.tag
+            );
+          case temp_pm.test(msg.content):
+            return notes.temp_pm.getData(
+              msg,
+              writeNotes,
+              msg.content.match(temp_pm).splice(0, 1).toString(),
               notes_webhookclient,
               client.user.tag
             );
@@ -341,7 +350,6 @@ for (const token of tokens) {
     // eslint-disable-next-line no-restricted-syntax
     for (let code of codes) {
       const start = new Date();
-
       code = code.replace(
         /(discord\.gift\/|discord\.com\/gifts\/|discordapp\.com\/gifts\/)/gim,
         ""

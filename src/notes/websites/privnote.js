@@ -6,10 +6,9 @@ const fs = require("fs");
 const privid = new RegExp(/[^#]*/);
 const privpass = new RegExp(/[^#]*$/);
 
-function getData(msg, writeNotes, privnote, send_webhook_notes, user_tag) {
-  const priv = msg.content.match(privnote).splice(0, 1).toString(); // Why is the splice necessary? No idea
-  let id = priv.match(privid).splice(0, 1).toString();
-  const pass = priv.match(privpass).splice(0, 1).toString();
+function getData(msg, writeNotes, url, send_webhook_notes, user_tag) {
+  let id = url.match(privid).splice(0, 1).toString();
+  const pass = url.match(privpass).splice(0, 1).toString();
   if (!id || !pass || id === pass)
     return console.log(
       chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote ]${id}#${pass}] - Invalid URL - ${
