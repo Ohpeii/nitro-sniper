@@ -8,12 +8,10 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>. */
 
-const regex = new RegExp(
+global.regex = new RegExp(
   /(discord\.gift\/|discord\.com\/gifts\/|discordapp\.com\/gifts\/)[^\s]+/gim
 );
 const privnote = new RegExp(/(?<=privnote.com\/)[^\s]+/);
-const privid = new RegExp(/[^#]*/);
-const privpass = new RegExp(/[^#]*$/);
 
 require("dotenv").config({ path: "dotenv" });
 const axios = require("axios").default;
@@ -25,11 +23,12 @@ const http = rateLimit(axios.create(), {
 });
 
 const chalk = require("chalk");
-const CryptoJS = require("crypto-js");
 const syncrq = require("sync-request");
 const fs = require("fs");
 
-const { Client, WebhookClient, MessageEmbed } = require("discord.js-light");
+const { Client } = require("discord.js-light");
+const notes = require("./notes/all");
+const { Webhook } = require("./webhooks");
 const { version } = require("../package.json");
 
 const { useMain } = process.env;
@@ -74,7 +73,7 @@ console.log(
   chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {redBright This program is licensed under GPL-3.0-or-later and provided free of charge at https://github.com/GiorgioBrux/nitro-sniper-enhanced.}`
 );
 
-const userAgent = (() =>
+global.userAgent = (() =>
   axios({
     url: "https://www.whatismybrowser.com/guides/the-latest-user-agent/chrome",
     method: "GET",
@@ -90,39 +89,12 @@ const userAgent = (() =>
     })
     .catch((err) => {
       console.log(
-        chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red There was an error fetching the latest chrome user agent: ${err}. Using default...}`
+        chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red There was an error fetching the latest chrome user agent: ${err
+          .toString()
+          .substring(7, err.length)}. Using default...}`
       );
       return "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36";
     }))();
-
-function check_webhook(webhookUrl, type) {
-  if (webhookUrl === "") {
-    console.log(
-      chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright The ${type} webhook is empty, skipping...}`
-    );
-    return null;
-  }
-
-  const webhooktoken = /[^/]*$/.exec(webhookUrl)[0];
-  const webhookid = webhookUrl.replace(/^.*\/(?=[^/]*\/[^/]*$)|\/[^/]*$/g, "");
-  if (
-    webhooktoken == null ||
-    webhookid == null ||
-    webhooktoken.length < webhookid.length ||
-    !/https:\/\/(ptb\.|canary\.|)(discordapp|discord)\.com\/api\/webhooks\/[0-9]+\/.+/g.test(
-      webhookUrl
-    )
-  ) {
-    console.log(
-      chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red The ${type} webhook url is not valid. Skipping...}`
-    );
-    return null;
-  }
-  console.log(
-    chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Using ${type} webhook with id: [${webhookid}] and token: [${webhooktoken}].}`
-  );
-  return new WebhookClient(webhookid, webhooktoken);
-}
 
 if (
   !webhookping_userid ||
@@ -137,68 +109,8 @@ if (
     chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright The userid [${webhookping_userid}] will be pinged in the nitro_webhook.}`
   );
 }
-const nitro_webhookclient = check_webhook(nitro_webhookUrl, "nitro");
-const notes_webhookclient = check_webhook(notes_webhookUrl, "notes");
-
-function send_webhook_nitro(
-  res_type,
-  guild,
-  giver,
-  tokenname,
-  timetaken,
-  code,
-  msgurl
-) {
-  if (!nitro_webhookclient) return;
-  const embed = new MessageEmbed()
-    .setTitle(`Sniped gift successfully!`)
-    .setColor("#1ce829")
-    .addField("Where", `${guild}`, true)
-    .addField("Account used", `${tokenname}`, true)
-    .addField("Giver", `${giver}`, true)
-    .addField("Time taken", `${timetaken}`, true)
-    .addField("Type of sub", `${res_type}`, true)
-    .addField("Giftcode", `${code}`, true)
-    .addField("​", `[Click here for the message.](${msgurl})`, false);
-  nitro_webhookclient
-    .send(`${webhookping_userid ? `<@${webhookping_userid}>` : ""}`, {
-      username: "Nitro Sniper",
-      avatarURL:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS0JCyNz1WwaTkXB3jcr0MlMLIwXAsHjhoIRw&usqp=CAU",
-      embeds: [embed],
-    })
-    .catch((err) => {
-      console.log(
-        chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to send nitro webhook embed but got error: ${err}.}`
-      );
-    });
-}
-
-function send_webhook_notes(noteweb, guild, giver, tokenname, content, msgurl) {
-  if (!notes_webhookUrl) return;
-  const embed = new MessageEmbed()
-    .setTitle(`Sniped note successfully!`)
-    .setColor("#1ce5e8")
-    .addField("Where", `${guild}`, true)
-    .addField("Account used", `${tokenname}`, true)
-    .addField("​", "​", true) // Dummy field
-    .addField("Sender", `${giver}`, true)
-    .addField("Type", `${noteweb}`, true)
-    .addField("Content", `${content}`, false)
-    .addField("​", `[Click here for the message.](${msgurl})`, false);
-  notes_webhookclient
-    .send(``, {
-      username: "Nitro Sniper",
-      avatarURL:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS0JCyNz1WwaTkXB3jcr0MlMLIwXAsHjhoIRw&usqp=CAU",
-      embeds: [embed],
-    })
-    .catch((err) => {
-      console.log(
-        chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to send notes webhook embed but got error: ${err}.}`
-      );
-    });
-}
+const nitro_webhookclient = new Webhook(nitro_webhookUrl, "nitro");
+const notes_webhookclient = new Webhook(notes_webhookUrl, "notes");
 
 if (!tokens || tokens.length === 0) {
   console.log(
@@ -283,7 +195,7 @@ const paymentsourceid = (() => {
     {
       headers: {
         authorization: mainToken,
-        "user-agent": userAgent,
+        "user-agent": global.userAgent,
       },
     }
   );
@@ -305,7 +217,7 @@ const paymentsourceid = (() => {
     return "null";
   } else if (ps[0]) {
     console.log(
-      chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Successfully got the payment method!].}`
+      chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Successfully got the payment method!.}`
     );
     return ps[0].id;
   } else {
@@ -364,7 +276,7 @@ for (const token of tokens) {
 
   client.on("message", async (msg) => {
     if (msg.author.id === client.user.id) return; // We don't want to snipe our own messages
-    let codes = msg.content.match(regex);
+    let codes = msg.content.match(global.regex);
     if (!codes || codes.length === 0) {
       codes = [];
     }
@@ -373,29 +285,29 @@ for (const token of tokens) {
         if (embed.fields) {
           // eslint-disable-next-line no-restricted-syntax
           for (const field of embed.fields) {
-            codes.push(String(field.name).match(regex));
+            codes.push(String(field.name).match(global.regex));
             codes.push(
               String(field.value)
                 .replace(/[\])]$/gm, "")
-                .match(regex)
+                .match(global.regex)
             );
           }
         }
         if (embed.author) {
           if (embed.author.name) {
-            codes.push(String(embed.author.name).match(regex));
+            codes.push(String(embed.author.name).match(global.regex));
           }
         }
         if (embed.description) {
-          codes.push(String(embed.description).match(regex));
+          codes.push(String(embed.description).match(global.regex));
         }
         if (embed.footer) {
           if (embed.footer.text) {
-            codes.push(String(embed.footer.text).match(regex));
+            codes.push(String(embed.footer.text).match(global.regex));
           }
         }
         if (embed.title) {
-          codes.push(String(embed.title).match(regex));
+          codes.push(String(embed.title).match(global.regex));
         }
       });
       codes = codes
@@ -405,92 +317,22 @@ for (const token of tokens) {
     }
     if (!codes || codes.length === 0) {
       if (notesCheck === "false") return;
-
-      let priv = msg.content.match(privnote);
-      if (!priv || priv.length === 0) return;
-      priv = priv.splice(0, 1).toString(); // Why is the splice necessary? No idea
-      let id = priv.match(privid).splice(0, 1).toString();
-      const pass = priv.match(privpass).splice(0, 1).toString();
-      if (!id || !pass || id === pass)
-        console.log(
-          chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote ]${id}#${pass}] - Invalid URL - ${
-            msg.guild ? msg.guild.name : "DM"
-          } from ${msg.author.tag}.}`
-        );
-
-      axios({
-        url: `https://privnote.com/${id}`,
-        method: "DELETE",
-        headers: {
-          "Content-type": "application/x-www-form-urlencoded",
-          "Content-Length": "0",
-          DNT: "1",
-          "X-Requested-With": "XMLHttpRequest",
-          Origin: "https://privnote.com",
-          Referer: "https://privnote.com/hidden",
-          "Sec-Fetch-Dest": "empty",
-          "Sec-Fetch-Mode": "cors",
-          "Sec-Fetch-Site": "same-origin",
-          "User-Agent": userAgent,
-        },
-      })
-        .then((res) => {
-          if (!Object.prototype.hasOwnProperty.call(res.data, "data"))
-            return console.log(
-              chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Non-existant/Already destroyed - ${
-                msg.guild ? msg.guild.name : "DM"
-              } from ${msg.author.tag}.}`
+      const test = function () {
+        switch (true) {
+          case privnote.test(msg.content):
+            return notes.privnote.getData(
+              msg,
+              writeNotes,
+              privnote,
+              notes_webhookclient,
+              client.user.tag
             );
-
-          // Decrypt gibberish-aes
-          let data = CryptoJS.AES.decrypt(res.data.data, pass);
-          data = data.toString(CryptoJS.enc.Utf8);
-          if (!data || data.length === 0)
-            return console.log(
-              chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Non-existant/Already destroyed - ${
-                msg.guild ? msg.guild.name : "DM"
-              } from ${msg.author.tag}.}`
-            );
-          codes = data.match(regex);
-          send_webhook_notes(
-            "privnote.com",
-            msg.guild ? msg.guild.name : "DMs",
-            msg.author.tag,
-            client.user.tag,
-            data,
-            msg.url
-          );
-          if (writeNotes === "true") {
-            id = id.replace(/[^/\w\s]/gi, ""); // Make id filename-safe
-            return fs.writeFile(`./notes/privnote-${id}.txt`, data, (err) => {
-              if (err)
-                return console.log(
-                  chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Couldn't save it to file because of err: ${
-                    err.message
-                  } - ${msg.guild ? msg.guild.name : "DM"} from ${
-                    msg.author.tag
-                  }.}`
-                );
-              return console.log(
-                chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Saved to file ./notes/privnote-${id}.txt - ${
-                  msg.guild ? msg.guild.name : "DM"
-                } from ${msg.author.tag}.}`
-              );
-            });
-          }
-          return console.log(
-            chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - ${
-              msg.guild ? msg.guild.name : "DM"
-            } from ${msg.author.tag}.}`
-          );
-        })
-        .catch((err) =>
-          console.log(
-            chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Error: ${err} - ${
-              msg.guild ? msg.guild.name : "DM"
-            } from ${msg.author.tag}.}`
-          )
-        );
+          default:
+            return [];
+        }
+      };
+      codes = codes.concat(await test());
+      if (!codes || codes.length === 0) return;
     }
     // eslint-disable-next-line no-restricted-syntax
     for (let code of codes) {
@@ -548,7 +390,7 @@ for (const token of tokens) {
         parse: "json",
         headers: {
           Authorization: mainToken,
-          "User-Agent": userAgent,
+          "User-Agent": global.userAgent,
           "Content-Type": "application/json",
         },
         data: {
@@ -566,14 +408,15 @@ for (const token of tokens) {
                 msg.author.tag
               } - ${end}.}`
             );
-            send_webhook_nitro(
+            nitro_webhookclient.send_webhook_nitro(
               res.data.subscription_plan.name,
               msg.guild ? msg.guild.name : "DMs",
               msg.author.tag,
               client.user.tag,
               end,
               code,
-              msg.url
+              msg.url,
+              webhookping_userid
             );
           } else {
             console.log(
