@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.11.0...v1.11.1) (2021-04-02)
+
+
+### Bug Fixes
+
+* fix npm i ([9241bdf](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/9241bdf620dd601bffffaa96145ba6aaf48c1b53))
+
 # [1.11.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.10.0...v1.11.0) (2021-04-02)
 
 
