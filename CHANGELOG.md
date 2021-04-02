@@ -1,3 +1,16 @@
+# [1.10.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.9.3...v1.10.0) (2021-04-02)
+
+
+### Bug Fixes
+
+* fix broken dependency ([45e362d](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/45e362d46174ba7fa897e08baca1dcc99be50524))
+
+
+### Features
+
+* add mainStatus ([6209cd7](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/6209cd78b7e2f4db03193f8fb415343c5bcd01c4)), closes [#33](https://github.com/giorgiobrux/nitro-sniper-enhanced/issues/33)
+* ignore messages with irrealistic number of gifts ([df9d11f](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/df9d11fe46d8a8ec3be0062efef00f3038a16b76))
+
 ## [1.9.3](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.9.2...v1.9.3) (2021-03-16)
 
 
