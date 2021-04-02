@@ -47,6 +47,7 @@ const {
   webhookping_userid,
   replit,
   tokenStatus,
+  mainStatus,
 } = process.env;
 
 let usedTokens = [];
@@ -494,6 +495,7 @@ for (const token of tokens) {
         chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {cyan Slave logged in as ${client.user.tag} - Sniping in ${client.guilds.cache.size} servers.}`
       );
     if (token !== mainToken) client.user.setStatus(tokenStatus);
+    else client.user.setStatus(mainStatus);
   });
 
   client.on("shardError", (error) => {

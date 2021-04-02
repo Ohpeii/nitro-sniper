@@ -50,6 +50,11 @@
          "required": true,
          "value": "online"
       },
+      "mainStatus": {
+         "description": "The status of your main token: {online, idle, invisible, dnd}. useMain must be set to true or this is useless. This status will be overwritten by other discord clients.",
+         "required": false,
+         "value": "invisible"
+      },
       "permanentCache": {
          "description": "Cache usedTokens to disk. No performance impact but will increase the memory used.",
          "required": true,

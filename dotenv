@@ -29,6 +29,9 @@ writeNotes=""
 # The status of guildTokens: {online, idle, invisible, dnd}
 tokenStatus=""
 
+# The status of your main token: {online, idle, invisible, dnd}. useMain must be set to true or this is useless. This status will be overwritten by other discord clients.
+mainStatus=""
+
 # Cache usedTokens to disk. No performance impact but will increase the memory used.
 permanentCache=""
 
