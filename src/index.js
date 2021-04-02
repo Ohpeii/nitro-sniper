@@ -31,23 +31,25 @@ const notes = require("./notes/all");
 const { Webhook } = require("./webhooks");
 const { version } = require("../package.json");
 
-const { useMain } = process.env;
 const tokens = process.env.guildTokens.split(",").filter((item) => item);
-const { mainToken } = process.env;
 
-const { nitro_webhookUrl } = process.env;
-const { notes_webhookUrl } = process.env;
-
-const { legitimacyCheck } = process.env;
-const { obfuscationCheck } = process.env;
-const { notesCheck } = process.env;
-const { writeNotes } = process.env;
 let { permanentCache } = process.env;
-const { webhookping_userid } = process.env;
-const { replit } = process.env;
-let usedTokens = [];
 
-const { tokenStatus } = process.env;
+const {
+  useMain,
+  mainToken,
+  nitro_webhookUrl,
+  notes_webhookUrl,
+  legitimacyCheck,
+  obfuscationCheck,
+  notesCheck,
+  writeNotes,
+  webhookping_userid,
+  replit,
+  tokenStatus,
+} = process.env;
+
+let usedTokens = [];
 
 if (useMain === "true" && mainToken != null) tokens.unshift(mainToken);
 console.log(
