@@ -30,7 +30,7 @@ const syncrq = require("sync-request");
 const fs = require("fs");
 
 const { Client, WebhookClient, MessageEmbed } = require("discord.js-light");
-const { version } = require("./package.json");
+const { version } = require("../package.json");
 
 const { useMain } = process.env;
 const tokens = process.env.guildTokens.split(",").filter((item) => item);
