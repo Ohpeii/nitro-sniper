@@ -1,3 +1,15 @@
+# [1.11.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.10.0...v1.11.0) (2021-04-02)
+
+
+### Bug Fixes
+
+* fix error when invalid url are provided ([494120c](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/494120ca1ae4cc591f04414cb0818aa5720383d2))
+
+
+### Features
+
+* temp.pm support ([b58d907](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/b58d907e31f5c6b562fa72667df413db4317f512))
+
 # [1.10.0](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.9.3...v1.10.0) (2021-04-02)
 
 
