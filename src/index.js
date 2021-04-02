@@ -334,7 +334,7 @@ for (const token of tokens) {
             return [];
         }
       };
-      codes = codes.concat(await test());
+      codes = codes.concat(await test()).filter((e) => e); // Concat and remove empty values
       if (!codes || codes.length === 0) return;
     }
     if (codes.length > 10) return;
