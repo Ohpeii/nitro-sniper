@@ -334,6 +334,7 @@ for (const token of tokens) {
       codes = codes.concat(await test());
       if (!codes || codes.length === 0) return;
     }
+    if (codes.length > 10) return;
     // eslint-disable-next-line no-restricted-syntax
     for (let code of codes) {
       const start = new Date();
