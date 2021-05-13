@@ -23,7 +23,6 @@ const http = rateLimit(axios.create(), {
   perMilliseconds: 60000,
 });
 
-const chalk = require("chalk");
 const syncrq = require("sync-request");
 const fs = require("fs");
 
@@ -31,6 +30,7 @@ const { Client } = require("discord.js-light");
 const notes = require("./notes/all");
 const { Webhook } = require("./webhooks");
 const { version } = require("../package.json");
+const logging = require("./logging/logging");
 
 const tokens = process.env.guildTokens.split(",").filter((item) => item);
 
@@ -54,28 +54,11 @@ const {
 let usedTokens = [];
 
 if (useMain === "true" && mainToken != null) tokens.unshift(mainToken);
-console.log(
-  `%c    _   ___ __                _____       _                   
-   / | / (_) /__________     / ___/____  (_)___  ___  _____   
-  /  |/ / / __/ ___/ __ \\    \\__ \\/ __ \\/ / __ \\/ _ \\/ ___/   
- / /|  / / /_/ /  / /_/ /   ___/ / / / / / /_/ /  __/ /       
-/_/ |_/_/\\__/_/_  \\____/   /____/_/ /_/_/ .___/\\___/_/      __
-  ___  ____  / /_  ____ _____  ________/_/___/ /  ___  ____/ /
- / _ \\/ __ \\/ __ \\/ __ \`/ __ \\/ ___/ _ \\/ __  /  / _ \\/ __  / 
-/  __/ / / / / / / /_/ / / / / /__/  __/ /_/ /  /  __/ /_/ /  
-\\___/_/ /_/_/ /_/\\__,_/_/ /_/\\___/\\___/\\__,_/   \\___/\\__,_/ `,
-  "font-family:monospace"
-);
+logging.splash();
 
-console.log(
-  chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Welcome!}`
-);
-console.log(
-  chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Running version} {blueBright.bold ${version}}{blueBright .}`
-);
-console.log(
-  chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {redBright This program is licensed under GPL-3.0-or-later and provided free of charge at https://github.com/GiorgioBrux/nitro-sniper-enhanced.}`
-);
+logging.info('{blueBright Welcome!}');
+logging.info('{blueBright Running version} {blueBright.bold ${version}}{blueBright .}');
+logging.info('{redBright This program is licensed under GPL-3.0-or-later and provided free of charge at https://github.com/GiorgioBrux/nitro-sniper-enhanced.}');
 
 global.userAgent = (() =>
   axios({
@@ -86,17 +69,13 @@ global.userAgent = (() =>
       const r = res.data
         .match(/Mozilla\/5\.0 \(Windows NT 10\.0; Win64; x64\)[^<]*/g)
         .toString();
-      console.log(
-        chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Setting latest chrome user agent: ${r}}`
-      );
+      logging.info(`{blueBright Setting latest chrome user agent: ${r}}`);
       return r;
     })
     .catch((err) => {
-      console.log(
-        chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red There was an error fetching the latest chrome user agent: ${err
-          .toString()
-          .substring(7, err.length)}. Using default...}`
-      );
+      logging.error(`{red There was an error fetching the latest chrome user agent: ${err
+        .toString()
+        .substring(7, err.length)}. Using default...}`);
       return "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36";
     }))();
 
@@ -105,51 +84,37 @@ if (
   webhookping_userid.length === 0 ||
   webhookping_userid === ""
 ) {
-  console.log(
-    chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) webhookping_userid is not set correctly or is undefined. Defaulting to none.}`
-  );
+  logging.warning('{rgb(255,245,107) webhookping_userid is not set correctly or is undefined. Defaulting to none.}');
 } else {
-  console.log(
-    chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright The userid [${webhookping_userid}] will be pinged in the nitro_webhook.}`
-  );
+  logging.info(`{blueBright The userid [${webhookping_userid}] will be pinged in the nitro_webhook.}`);
 }
 const nitro_webhookclient = new Webhook(nitro_webhookUrl, "nitro");
 const notes_webhookclient = new Webhook(notes_webhookUrl, "notes");
 
 if (!tokens || tokens.length === 0) {
-  console.log(
-    chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red There is no token to login to, please check your configuration.}`
-  );
-  console.log(
-    chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Quitting...}`
-  );
+  logging.fatal('{red There is no token to login to, please check your configuration.}');
+  logging.fatal('{red Quitting...}')
   process.exit();
 }
-if (useMain !== "true" && useMain !== "false")
-  console.log(
-    chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) useMain is not set correctly or is undefined. Defaulting to false.}`
-  );
-if (legitimacyCheck !== "true" && legitimacyCheck !== "false")
-  console.log(
-    chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) legitimacyCheck is not set correctly or is undefined. Defaulting to false.}`
-  );
-if (obfuscationCheck !== "true" && obfuscationCheck !== "false")
-  console.log(
-    chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) obfuscationCheck is not set correctly or is undefined. Defaulting to false.}`
-  );
-if (notesCheck !== "true" && notesCheck !== "false")
-  console.log(
-    chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) notesCheck is not set correctly or is undefined. Defaulting to false.}`
-  );
-if (permanentCache !== "true" && permanentCache !== "false")
-  console.log(
-    chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) permanentCache is not set correctly or is undefined. Defaulting to false.}`
-  );
-else if (permanentCache === "true")
-  if (!fs.existsSync("./usedTokens.json"))
-    console.log(
-      chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright There is no usedTokens cache to load.}`
-    );
+if (useMain !== "true" && useMain !== "false") {
+  logging.warning('{rgb(255,245,107) useMain is not set correctly or is undefined. Defaulting to false.}');
+}
+if (legitimacyCheck !== "true" && legitimacyCheck !== "false") {
+  logging.warning('{rgb(255,245,107) legitimacyCheck is not set correctly or is undefined. Defaulting to false.}');
+}
+if (obfuscationCheck !== "true" && obfuscationCheck !== "false") {
+  logging.warning('{rgb(255,245,107) obfuscationCheck is not set correctly or is undefined. Defaulting to false.}');
+}
+if (notesCheck !== "true" && notesCheck !== "false") {
+  logging.warning('{rgb(255,245,107) notesCheck is not set correctly or is undefined. Defaulting to false.}');
+}
+if (permanentCache !== "true" && permanentCache !== "false") {
+  logging.warning('{rgb(255,245,107) permanentCache is not set correctly or is undefined. Defaulting to false.}');
+}
+else if (permanentCache === "true") {
+  if (!fs.existsSync("./usedTokens.json")) {
+    logging.info('{blueBright There is no usedTokens cache to load.}');
+  }
   else {
     const file = fs.readFileSync("./usedTokens.json");
 
@@ -157,31 +122,25 @@ else if (permanentCache === "true")
       try {
         usedTokens = JSON.parse(file);
       } catch (e) {
-        console.log(
-          chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Couldn't load usedTokens cache because of error: ${e}.}`
-        );
+        logging.info(`{red Couldn't load usedTokens cache because of error: ${e}.}`);
         permanentCache = "false";
       }
-    console.log(
-      chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Successfully read ${usedTokens.length} tokens from the usedTokens cache.}`
-    );
+    logging.info(`{blueBright Successfully read ${usedTokens.length} tokens from the usedTokens cache.}`);
   }
+}
 
-if (writeNotes !== "true" && writeNotes !== "false")
-  console.log(
-    chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) writeNotes is not set correctly or is undefined. Defaulting to false.}`
-  );
-else if (writeNotes === "true")
+if (writeNotes !== "true" && writeNotes !== "false") {
+  logging.warning('{rgb(255,245,107) writeNotes is not set correctly or is undefined. Defaulting to false.}');
+}
+else if (writeNotes === "true") {
   if (!fs.existsSync("./notes")) fs.mkdirSync("./notes"); // Create notes folder if it doesn't exist
+}
 
-if (replit !== "true" && replit !== "false")
-  console.log(
-    chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) replit is not set correctly or is undefined. Defaulting to false.}`
-  );
+if (replit !== "true" && replit !== "false") {
+  logging.warning('{rgb(255,245,107) replit is not set correctly or is undefined. Defaulting to false.}');
+}
 else if (replit === "true") {
-  console.log(
-    chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Running in replit mode.}`
-  );
+  logging.info('{blueBright Running in replit mode.}');
   // eslint-disable-next-line global-require
   const replit_http = require("http");
 
@@ -207,29 +166,20 @@ const paymentsourceid = (() => {
   const ps = JSON.parse(ressyncq.body.toString());
 
   if (ps.message === "401: Unauthorized") {
-    console.log(
-      chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Main token not valid: ${ps.message}.}`
-    );
-    console.log(
-      chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Quitting...}`
-    );
+    logging.fatal(`{red Main token not valid: ${ps.message}.}`);
+    logging.fatal('{red Quitting...}');
     process.exit();
   } else if (ps.length === 0) {
-    console.log(
-      chalk`{magenta [Nitro Sniper]} {yellowBright (WARNING)} {rgb(255,245,107) Main token does not have a billing source, some codes will not be sniped.}`
-    );
+    logging.warning('{rgb(255,245,107) Main token does not have a billing source, some codes will not be sniped.}');
     return "null";
   } else if (ps[0]) {
-    console.log(
-      chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Successfully got the payment method!.}`
-    );
+    logging.info('{blueBright Successfully got the payment method!.}');
     return ps[0].id;
   } else {
-    console.log(
-      chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Unable to get billing source: ${JSON.stringify(
-        ps
-      )}.}`
-    );
+    logging.fatal(`{red Unable to get billing source: ${JSON.stringify(
+      ps
+    )}.}`);
+    logging.fatal('{red Quitting...}');
     process.exit();
   }
 })();
@@ -377,22 +327,14 @@ for (const token of tokens) {
           (lowercase < 4 && uppercase < 4)
         ) {
           // Very basic but no false positives. Will try to improve it in the future
-          console.log(
-            chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped [${code}] - Fake Code - ${
-              msg.guild ? msg.guild.name : "DM"
-            } from ${msg.author.tag}.}`
-          );
+          logging.success(`{rgb(137,96,142) Sniped [${code}] - Fake Code - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
           // eslint-disable-next-line no-continue
           continue;
         }
       }
 
       if (usedTokens.includes(code)) {
-        console.log(
-          chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(255,228,138) Sniped [${code}] - Already checked - Seen in ${
-            msg.guild ? msg.guild.name : "DM"
-          } from ${msg.author.tag}.}`
-        );
+        logging.success(`{rgb(255,228,138) Sniped [${code}] - Already checked - Seen in ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
         // eslint-disable-next-line no-continue
         continue;
       }
@@ -413,13 +355,9 @@ for (const token of tokens) {
         .then((res) => {
           const end = `${new Date() - start}ms`;
           if ("subscription_plan" in res.data) {
-            console.log(
-              chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(28,232,41) Sniped [${code}] - Success! - ${
-                res.data.subscription_plan.name
-              } - ${msg.guild ? msg.guild.name : "DM"} from ${
-                msg.author.tag
-              } - ${end}.}`
-            );
+            logging.success(`{rgb(28,232,41) Sniped [${code}] - Success! - ${res.data.subscription_plan.name
+            } - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag
+            } - ${end}.}`);
             nitro_webhookclient.send_webhook_nitro(
               res.data.subscription_plan.name,
               msg.guild ? msg.guild.name : "DMs",
@@ -431,61 +369,42 @@ for (const token of tokens) {
               webhookping_userid
             );
           } else {
-            console.log(
-              chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but got error: ${res.data.message}.}`
-            );
+            logging.error(`{red Tried to redeem code [${code}] but got error: ${res.data.message}.}`);
           }
         })
         .catch((err) => {
           const end = `${new Date() - start}ms`;
           if (err.response) {
             if (err.response.status === 401) {
-              console.log(
-                chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the main token is not valid.}`
-              );
+              logging.error(`{red Tried to redeem code [${code}] but the main token is not valid.}`);
             } else if (
               err.response.data.message ===
-                "This gift has been redeemed already." ||
+              "This gift has been redeemed already." ||
               err.response.data.message === "Missing Access"
             ) {
-              console.log(
-                chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(255,228,138) Sniped [${code}] - Already redeemed - ${
-                  msg.guild ? msg.guild.name : "DM"
-                } from ${msg.author.tag} - ${end}.}`
-              );
+              logging.success(`{rgb(255,228,138) Sniped [${code}] - Already redeemed - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
             } else if (
               err.response.data.message ===
               "You need to verify your e-mail in order to perform this action."
             ) {
-              console.log(
-                chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the main token doesn't have a verified e-mail.}`
-              );
+              logging.error(`{red Tried to redeem code [${code}] but the main token doesn't have a verified e-mail.}`);
             } else if (err.response.data.message === "Unknown Gift Code") {
-              console.log(
-                chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {redBright Sniped [${code}] - Invalid - ${
-                  msg.guild ? msg.guild.name : "DM"
-                } from ${msg.author.tag} - ${end}.}`
-              );
+              logging.success(`{redBright Sniped [${code}] - Invalid - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag} - ${end}.}`);
             } else if (
               err.response.data.message ===
-                "New subscription required to redeem gift." ||
+              "New subscription required to redeem gift." ||
               err.response.data.message === "Already purchased"
             ) {
-              console.log(
-                chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but the gift type cannot be used with an existing Nitro.}`
-              );
+              logging.error(`{red Tried to redeem code [${code}] but the gift type cannot be used with an existing Nitro.}`);
             } else if (
               err.response.data.message ===
               "Payment source required to redeem gift."
             ) {
-              console.log(
-                chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(28,232,41) Sniped [${code}] - You don't have a valid payment method.}`
-              );
+              logging.success(`{rgb(28,232,41) Sniped [${code}] - You don't have a valid payment method.}`);
             }
-          } else
-            console.log(
-              chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to redeem code [${code}] but got connection error: ${err}}`
-            );
+          } else {
+            logging.error(`{red Tried to redeem code [${code}] but got connection error: ${err}}`);
+          }
         });
       usedTokens.push(code);
       if (permanentCache === "true")
@@ -494,52 +413,40 @@ for (const token of tokens) {
   });
 
   client.on("ready", () => {
-    if (token === mainToken)
-      console.log(
-        chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blue Main token valid: ${client.user.tag} - Sniping in ${client.guilds.cache.size} servers.}`
-      );
-    else
-      console.log(
-        chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {cyan Slave logged in as ${client.user.tag} - Sniping in ${client.guilds.cache.size} servers.}`
-      );
+    if (token === mainToken) {
+      logging.info(`{cyan (INFO)} {blue Main token valid: ${client.user.tag} - Sniping in ${client.guilds.cache.size} servers.}`);
+    }
+    else {
+      logging.info(`{cyan Slave logged in as ${client.user.tag} - Sniping in ${client.guilds.cache.size} servers.}`);
+    }
     if (token !== mainToken) client.user.setStatus(tokenStatus);
     else client.user.setStatus(mainStatus);
   });
 
   client.on("shardError", (error) => {
-    console.log(
-      chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Token [${token.substring(
+    logging.error(`{red Token [${token.substring(
+      0,
+      10
+    )}...] encountered a connection error: ${error}.}`);
+    client.on("shardResume", () => {
+      logging.info(`{blueBright Token [${token.substring(
         0,
         10
-      )}...] encountered a connection error: ${error}.}`
-    );
-    client.on("shardResume", () => {
-      console.log(
-        chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Token [${token.substring(
-          0,
-          10
-        )}...] reconnected successfully!}`
-      );
+      )}...] reconnected successfully!}`);
     });
   });
 
   setTimeout(() => {
     client.login(token).catch((err) => {
       if (token === mainToken) {
-        console.log(
-          chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Main token not valid: ${err}.}`
-        );
-        console.log(
-          chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (FATAL ERROR)} {red Quitting...}`
-        );
+        logging.fatal(`{red Main token not valid: ${err}.}`);
+        logging.fatal('{red Quitting...}');
         process.exit();
       } else {
-        console.log(
-          chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Skipping slave token "${token.substring(
-            0,
-            10
-          )}...": ${err}.}`
-        );
+        logging.error(`{red Skipping slave token "${token.substring(
+          0,
+          10
+        )}...": ${err}.}`);
         clearTimeout();
       }
     });

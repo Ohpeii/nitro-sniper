@@ -1,13 +1,11 @@
-const chalk = require("chalk");
 const { WebhookClient, MessageEmbed } = require("discord.js-light");
+const logging = require('./logging/logging');
 
 class Webhook {
   constructor(webhookUrl, type) {
     this.a = 2;
     if (webhookUrl === "") {
-      console.log(
-        chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright The ${type} webhook is empty, skipping...}`
-      );
+      logging.info(`{blueBright The ${type} webhook is empty, skipping...}`);
       return null;
     }
 
@@ -24,14 +22,10 @@ class Webhook {
         webhookUrl
       )
     ) {
-      console.log(
-        chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red The ${type} webhook url is not valid. Skipping...}`
-      );
+      logging.error(`{red The ${type} webhook url is not valid. Skipping...}`);
       return null;
     }
-    console.log(
-      chalk`{magenta [Nitro Sniper]} {cyan (INFO)} {blueBright Using ${type} webhook with id: [${webhookid}] and token: [${webhooktoken}].}`
-    );
+    logging.info(`{blueBright Using ${type} webhook with id: [${webhookid}] and token: [${webhooktoken}].}`);
     this.client = new WebhookClient(webhookid, webhooktoken);
     this.a = 1;
   }
@@ -69,9 +63,7 @@ class Webhook {
         embeds: [embed],
       })
       .catch((err) => {
-        console.log(
-          chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to send nitro webhook embed but got error: ${err}.}`
-        );
+        logging.error(`{red Tried to send nitro webhook embed but got error: ${err}.}`);
       });
   }
 
@@ -95,9 +87,7 @@ class Webhook {
         embeds: [embed],
       })
       .catch((err) => {
-        console.log(
-          chalk`{magenta [Nitro Sniper]} {rgb(242,46,46) (ERROR)} {red Tried to send notes webhook embed but got error: ${err}.}`
-        );
+        logging.error(`{red Tried to send notes webhook embed but got error: ${err}.}`);
       });
   }
 }

@@ -1,5 +1,5 @@
 const axios = require("axios").default;
-const chalk = require("chalk");
+const logging = require('../../logging/logging');
 const CryptoJS = require("crypto-js");
 const fs = require("fs");
 
@@ -10,11 +10,9 @@ function getData(msg, writeNotes, url, send_webhook_notes, user_tag) {
   let id = url.match(privid).splice(0, 1).toString();
   const pass = url.match(privpass).splice(0, 1).toString();
   if (!id || !pass || id === pass)
-    return console.log(
-      chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote ]${id}#${pass}] - Invalid URL - ${
-        msg.guild ? msg.guild.name : "DM"
-      } from ${msg.author.tag}.}`
-    );
+    return logging.success(`{rgb(137,96,142) Sniped privnote ]${id}#${pass}] - Invalid URL - ${
+      msg.guild ? msg.guild.name : "DM"
+    } from ${msg.author.tag}.}`);
 
   return axios({
     url: `https://privnote.com/${id}`,
@@ -34,21 +32,17 @@ function getData(msg, writeNotes, url, send_webhook_notes, user_tag) {
   })
     .then((res) => {
       if (!Object.prototype.hasOwnProperty.call(res.data, "data"))
-        return console.log(
-          chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Non-existant/Already destroyed - ${
-            msg.guild ? msg.guild.name : "DM"
-          } from ${msg.author.tag}.}`
-        );
+        return logging.success(`{rgb(137,96,142) Sniped privnote [${id}#${pass}] - Non-existant/Already destroyed - ${
+          msg.guild ? msg.guild.name : "DM"
+        } from ${msg.author.tag}.}`);
 
       // Decrypt gibberish-aes
       let data = CryptoJS.AES.decrypt(res.data.data, pass);
       data = data.toString(CryptoJS.enc.Utf8);
       if (!data || data.length === 0)
-        return console.log(
-          chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Non-existant/Already destroyed - ${
-            msg.guild ? msg.guild.name : "DM"
-          } from ${msg.author.tag}.}`
-        );
+        return logging.success(`{rgb(137,96,142) Sniped privnote [${id}#${pass}] - Non-existant/Already destroyed - ${
+          msg.guild ? msg.guild.name : "DM"
+        } from ${msg.author.tag}.}`);
       send_webhook_notes.send_webhook_notes(
         "privnote.com",
         msg.guild ? msg.guild.name : "DMs",
@@ -60,33 +54,28 @@ function getData(msg, writeNotes, url, send_webhook_notes, user_tag) {
       if (writeNotes === "true") {
         id = id.replace(/[^/\w\s]/gi, ""); // Make id filename-safe
         fs.writeFile(`./notes/privnote-${id}.txt`, data, (err) => {
-          if (err)
-            console.log(
-              chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Couldn't save it to file because of err: ${
-                err.message
-              } - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`
-            );
-          else
-            console.log(
-              chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Saved to file ./notes/privnote-${id}.txt - ${
-                msg.guild ? msg.guild.name : "DM"
-              } from ${msg.author.tag}.}`
-            );
+          if (err) {
+            logging.success(`{rgb(137,96,142) Sniped privnote [${id}#${pass}] - Couldn't save it to file because of err: ${
+              err.message
+            } - ${msg.guild ? msg.guild.name : "DM"} from ${msg.author.tag}.}`);
+          }
+          else {
+            logging.success(`{rgb(137,96,142) Sniped privnote [${id}#${pass}] - Saved to file ./notes/privnote-${id}.txt - ${
+              msg.guild ? msg.guild.name : "DM"
+            } from ${msg.author.tag}.}`);
+          }
         });
-      } else
-        console.log(
-          chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - ${
-            msg.guild ? msg.guild.name : "DM"
-          } from ${msg.author.tag}.}`
-        );
+      } else {
+        logging.success(`{rgb(137,96,142) Sniped privnote [${id}#${pass}] - ${
+          msg.guild ? msg.guild.name : "DM"
+        } from ${msg.author.tag}.}`);
+      }
       return data.match(global.regex) || [];
     })
     .catch((err) =>
-      console.log(
-        chalk`{magenta [Nitro Sniper]} {rgb(28,232,41) [+]} {rgb(137,96,142) Sniped privnote [${id}#${pass}] - Error: ${err} - ${
-          msg.guild ? msg.guild.name : "DM"
-        } from ${msg.author.tag}.}`
-      )
+      logging.success(`{rgb(137,96,142) Sniped privnote [${id}#${pass}] - Error: ${err} - ${
+        msg.guild ? msg.guild.name : "DM"
+      } from ${msg.author.tag}.}`)
     );
 }
 
