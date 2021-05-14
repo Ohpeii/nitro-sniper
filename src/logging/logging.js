@@ -34,7 +34,7 @@ const warning = (msg) => {
 };
 
 const fatal = (msg) => {
-  genericPrefixed(`{rgb(242,46,46).bold (FATAL ERROR)}`);
+  genericPrefixed(`{rgb(242,46,46).bold (FATAL ERROR)} ${msg}`);
 };
 
 const success = (msg) => {
