@@ -1,5 +1,29 @@
 const chalk = require("chalk");
 
+function chalkish(parts, ...substitutions) {
+  // https://gist.github.com/bennadel/71eb3670ccf51daabf1658fb13b337b1
+  const rawResults = [];
+  const cookedResults = [];
+
+  const partsLength = parts.length;
+  const substitutionsLength = substitutions.length;
+
+  for (let i = 0; i < partsLength; i += 1) {
+    rawResults.push(parts.raw[i]);
+    cookedResults.push(parts[i]);
+
+    if (i < substitutionsLength) {
+      rawResults.push(substitutions[i]);
+      cookedResults.push(substitutions[i]);
+    }
+  }
+
+  const chalkParts = [cookedResults.join("")];
+  chalkParts.raw = [rawResults.join("")];
+
+  return chalk(chalkParts);
+}
+
 const splash = () => {
   console.log(
     `%c    _   ___ __                _____       _                   
@@ -16,9 +40,7 @@ const splash = () => {
 };
 
 const genericPrefixed = (msg) => {
-  console.log(
-    chalk`{magenta [Nitro Sniper]} ${msg}`
-  );
+  console.log(chalkish`{magenta [Nitro Sniper]} ${msg}`);
 };
 
 const info = (msg) => {
@@ -48,5 +70,5 @@ module.exports = {
   warning,
   genericPrefixed,
   fatal,
-  success
+  success,
 };
