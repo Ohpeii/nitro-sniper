@@ -1,3 +1,10 @@
+## [1.11.2](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.11.1...v1.11.2) (2021-05-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency dotenv to v9 ([0782199](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/0782199d4eee1a75044a9da5fadcce412333a3d2))
+
 ## [1.11.1](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.11.0...v1.11.1) (2021-04-02)
 
 
