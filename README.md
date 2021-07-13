@@ -58,6 +58,6 @@ If you contribute, all your code will be licensed under GPL-3.0-or-later.
 
 # License
 [GPL-3.0-or-later](https://www.gnu.org/licenses/)  
-Modified work Copyright (C) 2020 All nitro-sniper-enhanced contributors  
+Modified work Copyright (C) 2020-2021 All nitro-sniper-enhanced contributors  
 Original work Copyright (C) 2020 slow | Sublicensed according to the MIT license available [here](https://opensource.org/licenses/MIT) or in the [LICENSE.md](https://github.com/GiorgioBrux/nitro-sniper-enhanced/blob/master/LICENSE.md) file.
 
