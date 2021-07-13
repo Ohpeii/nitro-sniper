@@ -14,7 +14,7 @@ A fork of the (previously-MIT licensed) sniper by slow.
 - Auto-detects fake codes by length or probability check.
 - It remembers all codes it tries and won't check them again. (cached on disk).
 - Optional webhook support; Avatar and username set by default.
-- Will snipe privnotes searching for codes and saving the content to a file. 
+- Will snipe privnotes searching for codes and saving the content to a file.
 # Disclaimer
 The use of selfbots is against the [discord TOS](https://discord.com/terms) and [guidelines](https://discord.com/guidelines).  
 Before proceeding, make sure you understand the implications and can accept the consequences.
@@ -22,6 +22,8 @@ Before proceeding, make sure you understand the implications and can accept the 
 # Installation methods
 #### Heroku (recommended)
 Click on the image below and login to continue the setup.<br>
+> ❗ It's currently impossible to deploy a new heruoku instance. See [#115](https://github.com/GiorgioBrux/nitro-sniper-enhanced/issues/115)<br>
+
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com%2Fgiorgiobrux%2Fnitro-sniper-enhanced&template=https%3A%2F%2Fgithub.com%2Fgiorgiobrux%2Fnitro-sniper-enhanced%2Ftree%2Fmaster)  
 Make sure you go to your app -> Configure dynos/Resources and turn off `web` and start `worker`.<br>
 You can then see logs by clicking on `More` (top right) and then `View logs`.<br>
