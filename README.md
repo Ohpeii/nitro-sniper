@@ -21,13 +21,17 @@ Before proceeding, make sure you understand the implications and can accept the 
 
 # Installation methods
 #### Heroku (recommended)
-Click on the image below and login to continue the setup.<br>
-> ❗ It's currently impossible to deploy a new heruoku instance. See [#115](https://github.com/GiorgioBrux/nitro-sniper-enhanced/issues/115)<br>
+The good guys at heroku have apparently blacklisted this repo.<br>
+In order to deploy an heroku instance:
+- Fork the repo.
+- Go to https://dashboard.heroku.com/new?template=https://github.com/YOURUSERNAME/nitro-sniper-enhanced making sure to change `YOURUSERNAME` in the url to your actual github username.
+- To update your fork, you can use the `Fetch upstream` button on github.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://dashboard.heroku.com/new?button-url=https%3A%2F%2Fgithub.com%2Fgiorgiobrux%2Fnitro-sniper-enhanced&template=https%3A%2F%2Fgithub.com%2Fgiorgiobrux%2Fnitro-sniper-enhanced%2Ftree%2Fmaster)  
-Make sure you go to your app -> Configure dynos/Resources and turn off `web` and start `worker`.<br>
+> ℹ️ While directly using someone else's fork is possible, it is heavily discouraged for novice users because malicious code can be added and if one becomes very popular it will also be blacklisted by heroku.
+
+After deployment, make sure you go to your app -> Configure dynos/Resources and turn off `web` and start `worker`.<br>
 You can then see logs by clicking on `More` (top right) and then `View logs`.<br>
-To update see [here](https://github.com/GiorgioBrux/nitro-sniper-enhanced/issues/7#issuecomment-692116471).
+To update see [here](https://github.com/GiorgioBrux/nitro-sniper-enhanced/issues/7#issuecomment-692116471) or just remove your app and recreate it.
 #### Repl.it
 Go to your dashboard, click on the plus button, import from github and type `giorgiobrux/nitro-sniper-enhanced`. <br>
 Edit the dotenv file, making sure to set `replit` to `true`. <br>
