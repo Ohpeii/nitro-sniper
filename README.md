@@ -34,7 +34,8 @@ You can then see logs by clicking on `More` (top right) and then `View logs`.<br
 To update see [here](https://github.com/GiorgioBrux/nitro-sniper-enhanced/issues/7#issuecomment-692116471) or just remove your app and recreate it.
 #### Repl.it
 Go to your dashboard, click on the plus button, import from github and type `giorgiobrux/nitro-sniper-enhanced`. <br>
-Edit the dotenv file, making sure to set `replit` to `true`. <br>
+Edit the .env file, making sure to set `replit` to `true`. <br>
+No one else will be able to see the .env file even with public repos, so your tokens are safe. <br>
 **IMPORTANT**: You need to use a service that periodically pings your repl.it app like [UptimeRobot](https://uptimerobot.com/), or else it will go in sleep mode. <br>
 To update, run `git pull` from the shell.
 #### Local
@@ -42,7 +43,7 @@ To update, run `git pull` from the shell.
 - Run `git clone https://github.com/giorgiobrux/nitro-sniper-enhanced nitro-sniper`
 - Run `cd nitro-sniper`
 - Run `npm install`
-- Edit the dotenv file.
+- Edit the .env file.
 - Run `node .` <br>
 To update, run `git pull`  
 #### Docker

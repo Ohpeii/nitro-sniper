@@ -14,7 +14,7 @@ global.regex = new RegExp(
 const privnote = new RegExp(/(?<=privnote.com\/)[^\s]+/);
 const temp_pm = new RegExp(/(?<=temp.pm\/\?)[^\s]+/);
 
-require("dotenv").config({ path: "dotenv" });
+require("dotenv").config();
 const axios = require("axios").default;
 const rateLimit = require("axios-rate-limit");
 
