@@ -32,7 +32,7 @@ const { Webhook } = require("./webhooks");
 const { version } = require("../package.json");
 const logging = require("./logging/logging");
 
-const tokens = process.env.guildTokens.split(",").filter((item) => item);
+const tokens = process.env.guildTokens?.split(",").filter((item) => item);
 
 let { permanentCache } = process.env;
 
