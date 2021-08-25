@@ -1,3 +1,10 @@
+## [1.11.4](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.11.3...v1.11.4) (2021-08-25)
+
+
+### Bug Fixes
+
+* don't crash if guildTokens is undefined ([9b5c009](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/9b5c00917780ee91cc43dacea0ce51270a802008)), closes [#137](https://github.com/giorgiobrux/nitro-sniper-enhanced/issues/137)
+
 ## [1.11.3](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.11.2...v1.11.3) (2021-05-15)
 
 
