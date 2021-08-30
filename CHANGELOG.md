@@ -1,3 +1,10 @@
+## [1.11.5](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.11.4...v1.11.5) (2021-08-30)
+
+
+### Bug Fixes
+
+* bad package-lock.json ([5b24365](https://github.com/giorgiobrux/nitro-sniper-enhanced/commit/5b243653c1cba2e3865555db27a8ef6251428b32)), closes [#141](https://github.com/giorgiobrux/nitro-sniper-enhanced/issues/141)
+
 ## [1.11.4](https://github.com/giorgiobrux/nitro-sniper-enhanced/compare/v1.11.3...v1.11.4) (2021-08-25)
 
 
