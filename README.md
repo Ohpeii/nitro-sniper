@@ -34,8 +34,10 @@ You can then see logs by clicking on `More` (top right) and then `View logs`.<br
 To update see [here](https://github.com/GiorgioBrux/nitro-sniper-enhanced/issues/7#issuecomment-692116471) or just remove your app and recreate it.
 #### Repl.it
 Go to your dashboard, click on the plus button, import from github and type `giorgiobrux/nitro-sniper-enhanced`. <br>
-Edit the .env file, making sure to set `replit` to `true`. <br>
+On replit instead of editing the .env file, click on `secrets` in the left bar, and manually add everything you need, making sure to also add `replit` and set it to `true`. <br>
 No one else will be able to see the .env file even with public repos, so your tokens are safe. <br>
+> ⚠️The old `dotenv` (not .env) file can be seen by anyone who knows your username and your replit repo name. Make sure to update to the secrets system ASAP. <br>
+
 **IMPORTANT**: You need to use a service that periodically pings your repl.it app like [UptimeRobot](https://uptimerobot.com/), or else it will go in sleep mode. <br>
 To update, run `git pull` from the shell.
 #### Local
